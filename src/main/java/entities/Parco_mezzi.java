@@ -13,11 +13,11 @@ public abstract class Parco_mezzi {
     @Column(name = "ID")
     private UUID id;
     @Column
-    private int capienza;
+    protected int capienza;
     public Parco_mezzi(){};
-    public Parco_mezzi(UUID id,int capienza){
+    public Parco_mezzi(UUID id){
         this.id=id;
-        this.capienza=capienza;
+
     }
 
     public UUID getId() {

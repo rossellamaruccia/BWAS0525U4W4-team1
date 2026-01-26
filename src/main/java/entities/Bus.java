@@ -7,11 +7,11 @@ import java.util.UUID;
 @Entity
 @DiscriminatorValue("Bus")
 public class Bus extends Parco_mezzi{
-private static  int capienza=30;
+
 public Bus(){};
 public Bus (UUID id){
-super(id,capienza);
-
+super(id);
+    this.capienza=30;
     }
     @Override
     public String toString() {
