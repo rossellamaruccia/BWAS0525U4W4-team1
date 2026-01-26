@@ -8,13 +8,9 @@ import java.util.UUID;
 @DiscriminatorValue("Tram")
 public class Tram extends Parco_mezzi{
 
-    public Tram(){};
-    public Tram(UUID id) {
-        super(id);
+    public Tram(){
         this.capienza=50;
-
-    }
-
+    };
     @Override
     public String toString() {
         return "Tram{}"+super.toString();

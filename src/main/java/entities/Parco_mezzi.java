@@ -15,11 +15,6 @@ public abstract class Parco_mezzi {
     @Column
     protected int capienza;
     public Parco_mezzi(){};
-    public Parco_mezzi(UUID id){
-        this.id=id;
-
-    }
-
     public UUID getId() {
         return id;
     }
