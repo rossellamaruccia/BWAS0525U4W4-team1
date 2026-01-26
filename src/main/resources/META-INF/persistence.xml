@@ -3,7 +3,9 @@
              xmlns="http://xmlns.jcp.org/xml/ns/persistence"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <persistence-unit name="trasporti_pu">
-
+        <class>entities.Emittente</class>
+        <class>entities.DistributoreAutomatico</class>
+        <class>entities.RivenditoreUfficiale</class>
 
         <properties>
 
