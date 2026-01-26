@@ -1,10 +1,11 @@
-package org.example.entities;
+package entities;
 
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "tessere")
 public class Tessera {
 
     @Id
