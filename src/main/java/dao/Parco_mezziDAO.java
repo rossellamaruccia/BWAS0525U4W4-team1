@@ -1,4 +1,4 @@
-package DAO;
+package dao;
 
 import entities.Parco_mezzi;
 import jakarta.persistence.EntityManager;
@@ -12,6 +12,8 @@ public class Parco_mezziDAO {
     public Parco_mezziDAO(EntityManager em) {
         this.em = em;
     }
+
+
     public void saveParco_mezzi(Parco_mezzi newParco_mezzi) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
@@ -25,6 +27,17 @@ public class Parco_mezziDAO {
         query.setParameter("id", id);
         String Deleted = String.valueOf(query.executeUpdate());
         transaction.commit();
+
+    }
+    public Parco_mezzi findById(UUID id) {
+        TypedQuery<Parco_mezzi> query = em.createQuery(
+                "SELECT c FROM Parco_mezzi c WHERE c.id = :id",
+                Parco_mezzi.class
+        );
+        query.setParameter("id", id);
+
+        return query.getSingleResult();
+
 
     }
 }
