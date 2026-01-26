@@ -1,20 +1,30 @@
 package entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
-import java.util.UUID;
 @Entity
 @DiscriminatorValue("Bus")
-public class Bus extends Parco_mezzi{
+public class Bus extends Parco_mezzi {
+    @Column
+    private int capienza;
 
-public Bus(){};
-public Bus (UUID id){
-super(id);
-    this.capienza=30;
+
+    public Bus() {
+        this.capienza = 30;
     }
+
+    public int getCapienza() {
+        return capienza;
+    }
+
+    public void setCapienza(int capienza) {
+        this.capienza = capienza;
+    }
+
     @Override
     public String toString() {
-        return "Bus{}"+super.toString();
+        return "Bus{}" + super.toString();
     }
 }
