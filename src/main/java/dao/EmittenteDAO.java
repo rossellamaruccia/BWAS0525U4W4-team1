@@ -23,8 +23,10 @@ public class EmittenteDAO {
     }
 
     //find by ID
-    public Emittente trovaPerId(long id){
-        em.
+    public Emittente trovaPerId(long id) {
+        Emittente found = em.find(Emittente.class, id);
+        if (found == null) throw new NotFoundException(id);
+        return found;
     }
 
     //fuori_servizio
