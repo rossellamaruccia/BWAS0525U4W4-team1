@@ -5,11 +5,11 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class Application {
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasporti");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasportipu");
     public static void main(String[] args) {
         EntityManager em = emf.createEntityManager();
+        System.out.println("Hello World!");
         em.close();
         emf.close();
-        System.out.println("Hello World!");
     }
 }
