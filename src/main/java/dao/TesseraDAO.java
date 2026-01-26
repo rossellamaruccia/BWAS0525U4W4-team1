@@ -3,7 +3,7 @@ package dao;
 import entities.Tessera;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import org.example.exceptions.NotFoundException;
+
 
 public class TesseraDAO {
 
@@ -31,7 +31,7 @@ public class TesseraDAO {
         Tessera found = em.find(Tessera.class, numTessera);
 
         if (found == null) {
-            throw new NotFoundException(numTessera);
+            throw new Exceptions.NotFoundException(numTessera);
         }
         return found;
     }
