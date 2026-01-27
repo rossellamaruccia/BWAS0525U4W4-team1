@@ -14,8 +14,7 @@ public abstract class Emittente {
     @GeneratedValue
     private UUID emittenteId;
     // questo valore va collegato al biglietto
-
-
+    
     public Emittente() {
     }
 
