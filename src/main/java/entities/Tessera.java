@@ -18,13 +18,17 @@ public class Tessera {
 
     private LocalDate dataScadenza;
 
+    @OneToOne
+    @JoinColumn(name = "id_utente", nullable = false)
+    private Utente possessore;
+
     public Tessera() {
     }
 
-    public Tessera(int year, int month, int day) {
+    public Tessera(int year, int month, int day, Utente possessore) {
         this.dataEmissione = LocalDate.of(year, month, day);
-
         this.dataScadenza = dataEmissione.plusYears(1);
+        this.possessore = possessore;
     }
 
     public UUID getIdTessera() {
@@ -37,6 +41,14 @@ public class Tessera {
 
     public LocalDate getDataScadenza() {
         return dataScadenza;
+    }
+
+    public UUID getTesseraId() {
+        return tesseraId;
+    }
+
+    public Utente getPossessore() {
+        return possessore;
     }
 
     @Override

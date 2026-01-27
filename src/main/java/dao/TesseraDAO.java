@@ -5,8 +5,6 @@ import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
-import java.util.UUID;
-
 
 public class TesseraDAO {
 
@@ -29,7 +27,7 @@ public class TesseraDAO {
         System.out.println("La tessera " + tessera.getIdTessera() + " é stata salvata con successo");
     }
 
-    public Tessera trovaTesseraDalNumero(UUID tesseraId) {
+    public Tessera trovaTesseraDalNumero(String tesseraId) {
 
         Tessera found = em.find(Tessera.class, tesseraId);
 
@@ -39,7 +37,7 @@ public class TesseraDAO {
         return found;
     }
 
-    public void cancellaTesseraDaid(UUID tesseraId) {
+    public void cancellaTesseraDaId(String tesseraId) {
         Tessera found = trovaTesseraDalNumero(tesseraId);
 
         EntityTransaction transaction = em.getTransaction();
