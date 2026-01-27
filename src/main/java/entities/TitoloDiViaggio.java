@@ -23,15 +23,15 @@ public abstract class TitoloDiViaggio {
     private LocalDateTime dataEmissione;
 
     @Column(name = "emittente_id", nullable = false)
-    private Long emittenteId;
+    private Emittente emittente;
 
     public TitoloDiViaggio() {
     }
 
-    protected TitoloDiViaggio(String codiceUnivoco, LocalDateTime dataEmissione, Long emittenteId) {
+    protected TitoloDiViaggio(String codiceUnivoco, LocalDateTime dataEmissione, Emittente emittente) {
         this.codiceUnivoco = codiceUnivoco;
         this.dataEmissione = dataEmissione;
-        this.emittenteId = emittenteId;
+        this.emittente = emittente;
     }
 
     public UUID getId() {
@@ -54,12 +54,12 @@ public abstract class TitoloDiViaggio {
         this.dataEmissione = dataEmissione;
     }
 
-    public Long getEmittenteId() {
-        return emittenteId;
+    public Emittente getEmittente() {
+        return emittente;
     }
 
-    public void setEmittenteId(Long emittenteId) {
-        this.emittenteId = emittenteId;
+    public void setEmittenteId(Emittente emittente) {
+        this.emittente = emittente;
     }
 
     @Override
@@ -68,7 +68,7 @@ public abstract class TitoloDiViaggio {
                 "id=" + id +
                 ", codiceUnivoco='" + codiceUnivoco + '\'' +
                 ", dataEmissione=" + dataEmissione +
-                ", emittenteId=" + emittenteId +
+                ", emittenteId=" + emittente +
                 '}';
     }
 }
