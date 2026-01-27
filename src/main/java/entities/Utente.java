@@ -1,14 +1,20 @@
 package entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "utenti")
 public class Utente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue
+    private UUID utenteId;
+
 
     private String nome;
     private String cognome;
@@ -49,10 +55,14 @@ public class Utente {
         this.eta = eta;
     }
 
+    public UUID getUtenteId() {
+        return utenteId;
+    }
+
     @Override
     public String toString() {
         return "Utente{" +
-                "id=" + id +
+                "id=" + utenteId +
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
                 ", eta=" + eta +

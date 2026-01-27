@@ -1,7 +1,8 @@
-package Exceptions;
+package exceptions;
+
+import java.util.UUID;
 
 public class NotFoundException extends RuntimeException {
-    public NotFoundException(long id) {
-        super("Distributore non trovato.");
+    public NotFoundException(UUID id) {
     }
 }
