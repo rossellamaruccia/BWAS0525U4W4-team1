@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public class Parco_mezziDAO {
     private final EntityManager em;
+
     public Parco_mezziDAO(EntityManager em) {
         this.em = em;
     }
@@ -20,6 +21,7 @@ public class Parco_mezziDAO {
         em.persist(newParco_mezzi);
         transaction.commit();
     }
+
     public void findByIdAndDelete(UUID id) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
@@ -29,6 +31,7 @@ public class Parco_mezziDAO {
         transaction.commit();
 
     }
+
     public Parco_mezzi findById(UUID id) {
         TypedQuery<Parco_mezzi> query = em.createQuery(
                 "SELECT c FROM Parco_mezzi c WHERE c.id = :id",
@@ -37,7 +40,6 @@ public class Parco_mezziDAO {
         query.setParameter("id", id);
 
         return query.getSingleResult();
-
 
     }
 }

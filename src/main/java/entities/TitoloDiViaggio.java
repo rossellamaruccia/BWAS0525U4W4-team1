@@ -3,6 +3,7 @@ package entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Table(name = "titoli_di_viaggio")
@@ -10,8 +11,8 @@ import java.time.LocalDateTime;
 public abstract class TitoloDiViaggio {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
     // Codice univoco del titolo di viaggio
     @Column(name = "codice_univoco", nullable = false, unique = true)
@@ -33,7 +34,7 @@ public abstract class TitoloDiViaggio {
         this.emittenteId = emittenteId;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
