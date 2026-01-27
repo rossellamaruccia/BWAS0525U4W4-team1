@@ -15,6 +15,7 @@
         <class>entities.Utente</class>
         <class>entities.Tratta</class>
         <class>entities.Abbonamento</class>
+        <class>entities.Percorrenza_tratta</class>
 
         <properties>
 

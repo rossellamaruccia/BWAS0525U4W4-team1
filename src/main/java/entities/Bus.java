@@ -16,10 +16,8 @@ public class Bus extends Parco_mezzi {
     public Bus() {
     }
 
-    ;
-
-    public Bus(Stato stato, LocalDate data_attivazione, double percorrenza_effettivaKm, int num_percorrenze) {
-        super(stato, data_attivazione, percorrenza_effettivaKm, num_percorrenze);
+    public Bus(Stato stato, LocalDate data_attivazione, Tratta tratta) {
+        super(stato, data_attivazione, tratta);
         this.capienza = 30;
     }
 

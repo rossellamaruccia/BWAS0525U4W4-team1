@@ -15,26 +15,26 @@ public abstract class Parco_mezzi {
     @GeneratedValue
     @Column(name = "ID")
     private UUID id;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Stato stato;
     @Column
     private LocalDate data_attivazione;
-    @Column
-    private double percorrenza_effettivaKm;
-    @Column
-    private int num_percorrenze;
+
+    @OneToOne
+    @JoinColumn(name = "tratta_associata")
+    private Tratta tratta;
+
 
     public Parco_mezzi() {
     }
 
-    ;
 
-    public Parco_mezzi(Stato stato, LocalDate data_attivazione, double percorrenza_effettivaKm, int num_percorrenze) {
+    public Parco_mezzi(Stato stato, LocalDate data_attivazione, Tratta tratta) {
         this.stato = stato;
         this.data_attivazione = data_attivazione;
-        this.percorrenza_effettivaKm = percorrenza_effettivaKm;
-        this.num_percorrenze = num_percorrenze;
+        this.tratta = tratta;
     }
 
 
@@ -63,20 +63,8 @@ public abstract class Parco_mezzi {
         this.data_attivazione = data_attivazione;
     }
 
-    public double getPercorrenza_effettivaKm() {
-        return percorrenza_effettivaKm;
-    }
-
-    public void setPercorrenza_effettivaKm(double percorrenza_effettivaKm) {
-        this.percorrenza_effettivaKm = percorrenza_effettivaKm;
-    }
-
-    public int getNum_percorrenze() {
-        return num_percorrenze;
-    }
-
-    public void setNum_percorrenze(int num_percorrenze) {
-        this.num_percorrenze = num_percorrenze;
+    public Tratta getTratta() {
+        return tratta;
     }
 
     @Override
@@ -85,8 +73,6 @@ public abstract class Parco_mezzi {
                 "id=" + id +
                 ", stato=" + stato +
                 ", data_attivazione=" + data_attivazione +
-                ", percorrenza_effettivaKm=" + percorrenza_effettivaKm +
-                ", num_percorrenze=" + num_percorrenze +
                 '}';
     }
 }

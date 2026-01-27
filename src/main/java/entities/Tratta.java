@@ -1,16 +1,13 @@
 package entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Tratta {
-    //    @OneToMany(mappedBy = "mezzo")
-//    List<Parco_mezzi> mezzi = new ArrayList<>();
+
     @Id
     @GeneratedValue
     private UUID id;
@@ -20,6 +17,7 @@ public class Tratta {
     private String capolinea;
     @Column(name = "tempo_percorrenza_standard")
     private double tempo_percorrenza_standard;
+
 
     public Tratta() {
     }
