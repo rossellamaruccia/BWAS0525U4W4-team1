@@ -1,8 +1,9 @@
 package org.example;
 
-import dao.EmittenteDAO;
-import entities.DistributoreAutomatico;
-import entities.RivenditoreUfficiale;
+import dao.TesseraDAO;
+import dao.TitoloDiViaggioDAO;
+import entities.Abbonamento;
+import entities.Tessera;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -12,18 +13,11 @@ public class Application {
 
     public static void main(String[] args) {
         EntityManager em = emf.createEntityManager();
-        EmittenteDAO emittdao = new EmittenteDAO(em);
-        DistributoreAutomatico distrib1 = new DistributoreAutomatico(true);
-
-        DistributoreAutomatico distrib2 = new DistributoreAutomatico(false);
-
-        RivenditoreUfficiale riven1 = new RivenditoreUfficiale();
-
-        RivenditoreUfficiale riven2 = new RivenditoreUfficiale();
-        emittdao.save(distrib1);
-        emittdao.save(distrib2);
-        emittdao.save(riven1);
-        emittdao.save(riven2);
+        TesseraDAO td = new TesseraDAO(em);
+        Tessera tessera1 = new Tessera(2026, 1, 27);
+        TitoloDiViaggioDAO tdvd = new TitoloDiViaggioDAO(em);
+        Abbonamento abbonamento1 = new Abbonamento(30, tessera1);
+        tdvd.save(abbonamento1);
 
         em.close();
         emf.close();

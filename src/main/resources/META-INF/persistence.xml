@@ -13,6 +13,8 @@
         <class>entities.Tessera</class>
         <class>entities.TitoloDiViaggio</class>
         <class>entities.Utente</class>
+        <class>entities.Tratta</class>
+        <class>entities.Abbonamento</class>
 
         <properties>
 

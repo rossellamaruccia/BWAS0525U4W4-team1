@@ -2,18 +2,17 @@ package entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
 public class Tratta {
-    @OneToMany(mappedBy = "mezzo")
-    List<Parco_mezzi> mezzi = new ArrayList<>();
+    //    @OneToMany(mappedBy = "mezzo")
+//    List<Parco_mezzi> mezzi = new ArrayList<>();
     @Id
+    @GeneratedValue
     private UUID id;
     @Column(name = "partenza")
     private String partenza;
