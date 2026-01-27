@@ -22,7 +22,8 @@ public abstract class TitoloDiViaggio {
     @Column(name = "data_emissione", nullable = false)
     private LocalDateTime dataEmissione;
 
-    @Column(name = "emittente_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "emittente_id", nullable = false)
     private Emittente emittente;
 
     public TitoloDiViaggio() {
