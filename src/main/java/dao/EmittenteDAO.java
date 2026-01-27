@@ -7,6 +7,8 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 
+import java.util.UUID;
+
 public class EmittenteDAO {
     private final EntityManager em;
 
@@ -25,7 +27,7 @@ public class EmittenteDAO {
 
     //find by ID
     public Emittente trovaPerId(String id) {
-        Emittente found = em.find(Emittente.class, id);
+        Emittente found = em.find(Emittente.class, UUID.fromString(id));
         if (found == null) throw new NotFoundException(id);
         return found;
     }

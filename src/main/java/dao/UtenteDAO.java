@@ -5,6 +5,8 @@ import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.UUID;
+
 public class UtenteDAO {
     private final EntityManager em;
 
@@ -21,7 +23,7 @@ public class UtenteDAO {
     }
 
     public Utente getById(String id) {
-        Utente found = em.find(Utente.class, id);
+        Utente found = em.find(Utente.class, UUID.fromString(id));
         if (found == null) {
             throw new NotFoundException(id);
         }

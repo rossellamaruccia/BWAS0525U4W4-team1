@@ -1,9 +1,11 @@
 package dao;
 
 import entities.Tessera;
-import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import exceptions.NotFoundException;
+
+import java.util.UUID;
 
 
 public class TesseraDAO {
@@ -27,18 +29,18 @@ public class TesseraDAO {
         System.out.println("La tessera " + tessera.getIdTessera() + " é stata salvata con successo");
     }
 
-    public Tessera trovaTesseraDalNumero(String tesseraId) {
+    public Tessera trovaTesseraDalNumero(String numTessera) {
 
-        Tessera found = em.find(Tessera.class, tesseraId);
+        Tessera found = em.find(Tessera.class, UUID.fromString(numTessera));
 
         if (found == null) {
-            throw new NotFoundException(tesseraId);
+            throw new NotFoundException(numTessera);
         }
         return found;
     }
 
-    public void cancellaTesseraDaId(String tesseraId) {
-        Tessera found = trovaTesseraDalNumero(tesseraId);
+    public void cancellaTesseraDalNumero(String numTessera) {
+        Tessera found = trovaTesseraDalNumero(numTessera);
 
         EntityTransaction transaction = em.getTransaction();
 
@@ -48,7 +50,7 @@ public class TesseraDAO {
 
         transaction.commit();
 
-        System.out.println("Tessera con numero " + tesseraId + " eliminata con successo");
+        System.out.println("Tessera con numero " + numTessera + " eliminata con successo");
     }
 
 }
