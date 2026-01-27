@@ -11,6 +11,7 @@ public class Utente {
 
     @Id
     @GeneratedValue
+    @Column(name = "id_utente")
     private UUID utenteId;
 
     @Column(nullable = false)

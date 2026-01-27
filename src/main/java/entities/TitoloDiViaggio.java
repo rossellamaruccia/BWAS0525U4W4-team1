@@ -8,7 +8,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "titoli_di_viaggio")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class TitoloDiViaggio {
+public abstract class TitoloDiViaggio {
 
     @Id
     @GeneratedValue
@@ -22,17 +22,16 @@ public class TitoloDiViaggio {
     @Column(name = "data_emissione", nullable = false)
     private LocalDateTime dataEmissione;
 
-    @ManyToOne
-    @JoinColumn(name = "emittente_id")
+    @Column(name = "emittente_id", nullable = false)
     private Emittente emittente;
-    
 
     public TitoloDiViaggio() {
     }
 
-    protected TitoloDiViaggio(String codiceUnivoco, LocalDateTime dataEmissione) {
+    protected TitoloDiViaggio(String codiceUnivoco, LocalDateTime dataEmissione, Emittente emittente) {
         this.codiceUnivoco = codiceUnivoco;
         this.dataEmissione = dataEmissione;
+        this.emittente = emittente;
     }
 
     public UUID getId() {
@@ -55,8 +54,12 @@ public class TitoloDiViaggio {
         this.dataEmissione = dataEmissione;
     }
 
-    public Emittente getEmittenteId() {
+    public Emittente getEmittente() {
         return emittente;
+    }
+
+    public void setEmittenteId(Emittente emittente) {
+        this.emittente = emittente;
     }
 
     @Override
