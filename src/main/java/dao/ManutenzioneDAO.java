@@ -22,13 +22,13 @@ public class ManutenzioneDAO {
         transaction.commit();
     }
     //find by ID
-    public Manutenzione trovaPerId(long id) {
-        Manutenzione found = em.find(Manutenzione.class, id);
+    public Manutenzione trovaPerId(String id) {
+        Manutenzione found = em.find(Manutenzione.class, UUID.fromString(id));
         if (found == null) throw new NotFoundException(id);
         return found;
     }
     //find by ID and delete
-    public void trovaPerIdEcancella(UUID id) {
+    public void trovaPerIdEcancella(String id) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         TypedQuery<Manutenzione> query = em.createQuery("DELETE FROM Manutenzione a WHERE a.id = :id", Manutenzione.class);

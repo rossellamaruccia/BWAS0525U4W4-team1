@@ -22,8 +22,8 @@ public class UtenteDAO {
         System.out.println("Utente " + utente.getNome() + " salvato!");
     }
 
-    public Utente getById(UUID id) {
-        Utente found = em.find(Utente.class, id);
+    public Utente getById(String id) {
+        Utente found = em.find(Utente.class, UUID.fromString(id));
         if (found == null) {
             throw new NotFoundException(id);
         }

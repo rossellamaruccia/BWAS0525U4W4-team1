@@ -29,9 +29,9 @@ public class TesseraDAO {
         System.out.println("La tessera " + tessera.getIdTessera() + " é stata salvata con successo");
     }
 
-    public Tessera trovaTesseraDalNumero(UUID numTessera) {
+    public Tessera trovaTesseraDalNumero(String numTessera) {
 
-        Tessera found = em.find(Tessera.class, numTessera);
+        Tessera found = em.find(Tessera.class, UUID.fromString(numTessera));
 
         if (found == null) {
             throw new NotFoundException(numTessera);
@@ -39,7 +39,7 @@ public class TesseraDAO {
         return found;
     }
 
-    public void cancellaTesseraDalNumero(UUID numTessera) {
+    public void cancellaTesseraDalNumero(String numTessera) {
         Tessera found = trovaTesseraDalNumero(numTessera);
 
         EntityTransaction transaction = em.getTransaction();
