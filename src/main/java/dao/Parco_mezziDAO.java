@@ -22,7 +22,7 @@ public class Parco_mezziDAO {
         transaction.commit();
     }
 
-    public void findByIdAndDelete(UUID id) {
+    public void findByIdAndDelete(String id) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         TypedQuery<Parco_mezzi> query = em.createQuery("DELETE FROM Parco_mezzi a WHERE a.id = :id", Parco_mezzi.class);
@@ -32,7 +32,7 @@ public class Parco_mezziDAO {
 
     }
 
-    public Parco_mezzi findById(UUID id) {
+    public Parco_mezzi findById(String id) {
         TypedQuery<Parco_mezzi> query = em.createQuery(
                 "SELECT c FROM Parco_mezzi c WHERE c.id = :id",
                 Parco_mezzi.class

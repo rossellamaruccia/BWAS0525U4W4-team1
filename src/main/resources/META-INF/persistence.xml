@@ -13,6 +13,7 @@
         <class>entities.Tessera</class>
         <class>entities.TitoloDiViaggio</class>
         <class>entities.Utente</class>
+        <class>entities.Manutenzione</class>
 
         <properties>
 
