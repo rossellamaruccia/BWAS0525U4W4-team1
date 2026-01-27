@@ -14,10 +14,6 @@ public abstract class TitoloDiViaggio {
     @GeneratedValue
     private UUID id;
 
-    // Codice univoco del titolo di viaggio
-    @Column(name = "codice_univoco", nullable = false, unique = true)
-    private String codiceUnivoco;
-
     // Data/ora di emissione del titolo
     @Column(name = "data_emissione", nullable = false)
     private LocalDateTime dataEmissione;
@@ -30,21 +26,12 @@ public abstract class TitoloDiViaggio {
     }
 
     protected TitoloDiViaggio(String codiceUnivoco, LocalDateTime dataEmissione, Emittente emittente) {
-        this.codiceUnivoco = codiceUnivoco;
         this.dataEmissione = dataEmissione;
         this.emittente = emittente;
     }
 
     public UUID getId() {
         return id;
-    }
-
-    public String getCodiceUnivoco() {
-        return codiceUnivoco;
-    }
-
-    public void setCodiceUnivoco(String codiceUnivoco) {
-        this.codiceUnivoco = codiceUnivoco;
     }
 
     public LocalDateTime getDataEmissione() {
@@ -67,7 +54,6 @@ public abstract class TitoloDiViaggio {
     public String toString() {
         return "TitoloDiViaggio{" +
                 "id=" + id +
-                ", codiceUnivoco='" + codiceUnivoco + '\'' +
                 ", dataEmissione=" + dataEmissione +
                 ", emittenteId=" + emittente +
                 '}';
