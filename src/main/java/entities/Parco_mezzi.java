@@ -14,7 +14,8 @@ public abstract class Parco_mezzi {
     @GeneratedValue
     @Column(name = "ID")
     private UUID id;
-    @Column (nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Stato stato;
     @Column
     private LocalDate data_attivazione;

@@ -3,7 +3,9 @@ package dao;
 import entities.Tessera;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import org.example.exceptions.NotFoundException;
+import Exceptions.NotFoundException;
+
+
 
 public class TesseraDAO {
 
