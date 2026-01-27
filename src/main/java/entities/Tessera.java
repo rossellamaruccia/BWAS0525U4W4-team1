@@ -59,5 +59,4 @@ public class Tessera {
                 ", dataScadenza=" + dataScadenza +
                 '}';
     }
-
 }
