@@ -4,6 +4,8 @@ import entities.Tratta;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.UUID;
+
 public class TrattaDAO {
 
     private final EntityManager em;
@@ -19,4 +21,11 @@ public class TrattaDAO {
         transaction.commit();
     }
 
+    public void remove(UUID id_tratta) {
+        EntityTransaction transaction = em.getTransaction();
+        Tratta found = em.find(Tratta.class, id_tratta);
+        transaction.begin();
+        em.remove(found);
+        transaction.commit();
+    }
 }
