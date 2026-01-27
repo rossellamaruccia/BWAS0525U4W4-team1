@@ -2,6 +2,8 @@ package entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "utenti")
 public class Utente {
@@ -12,17 +14,16 @@ public class Utente {
 
     private String nome;
     private String cognome;
-    private int eta;
+    private LocalDate data_di_nascita;
 
     public Utente() {
     }
 
     // costruttore con parametri
-    public Utente(String nome, String cognome, int eta) {
+    public Utente(String nome, String cognome, int yyyy, int dd, int mm) {
         this.nome = nome;
         this.cognome = cognome;
-        this.eta = eta;
-
+        this.data_di_nascita = LocalDate.of(yyyy, mm, dd);
     }
 
     public String getNome() {
@@ -41,12 +42,12 @@ public class Utente {
         this.cognome = cognome;
     }
 
-    public int getEta() {
-        return eta;
+    public LocalDate getDataDiNascita() {
+        return data_di_nascita;
     }
 
-    public void setEta(int eta) {
-        this.eta = eta;
+    public void setEta(int yyyy, int mm, int dd) {
+        this.data_di_nascita = LocalDate.of(yyyy, mm, dd);
     }
 
     @Override

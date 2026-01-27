@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "titoli_di_viaggio")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class TitoloDiViaggio {
+public class TitoloDiViaggio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,16 +21,17 @@ public abstract class TitoloDiViaggio {
     @Column(name = "data_emissione", nullable = false)
     private LocalDateTime dataEmissione;
 
-    @Column(name = "emittente_id", nullable = false)
-    private Long emittenteId;
+    @ManyToOne
+    @JoinColumn(name = "emittente_id")
+    private Emittente emittente;
+    
 
     public TitoloDiViaggio() {
     }
 
-    protected TitoloDiViaggio(String codiceUnivoco, LocalDateTime dataEmissione, Long emittenteId) {
+    protected TitoloDiViaggio(String codiceUnivoco, LocalDateTime dataEmissione) {
         this.codiceUnivoco = codiceUnivoco;
         this.dataEmissione = dataEmissione;
-        this.emittenteId = emittenteId;
     }
 
     public Long getId() {
@@ -53,12 +54,8 @@ public abstract class TitoloDiViaggio {
         this.dataEmissione = dataEmissione;
     }
 
-    public Long getEmittenteId() {
-        return emittenteId;
-    }
-
-    public void setEmittenteId(Long emittenteId) {
-        this.emittenteId = emittenteId;
+    public Emittente getEmittenteId() {
+        return emittente;
     }
 
     @Override
@@ -67,7 +64,7 @@ public abstract class TitoloDiViaggio {
                 "id=" + id +
                 ", codiceUnivoco='" + codiceUnivoco + '\'' +
                 ", dataEmissione=" + dataEmissione +
-                ", emittenteId=" + emittenteId +
+                ", emittenteId=" + emittente +
                 '}';
     }
 }

@@ -4,7 +4,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("rivenditore_ufficiale")
+@DiscriminatorValue("rivenditore")
 public class RivenditoreUfficiale extends Emittente {
     public RivenditoreUfficiale() {
     }

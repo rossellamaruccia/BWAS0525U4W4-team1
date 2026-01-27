@@ -5,7 +5,7 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("distributore_automatico")
+@DiscriminatorValue("distributore")
 public class DistributoreAutomatico extends Emittente {
     @Column(name = "in_servizio")
     private boolean in_servizio;
