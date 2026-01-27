@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
+import java.time.LocalDate;
+
 @Entity
 @DiscriminatorValue("Bus")
 public class Bus extends Parco_mezzi {
@@ -11,8 +13,10 @@ public class Bus extends Parco_mezzi {
     private int capienza;
 
 
-    public Bus() {
-        this.capienza = 30;
+    public Bus() {};
+    public Bus (Stato stato, LocalDate data_attivazione, double percorrenza_effettivaKm, int num_percorrenze){
+        super(stato,data_attivazione,percorrenza_effettivaKm,num_percorrenze);
+        this.capienza=30;
     }
 
     public int getCapienza() {
