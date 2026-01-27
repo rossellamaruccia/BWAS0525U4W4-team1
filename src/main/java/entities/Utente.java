@@ -1,10 +1,8 @@
 package entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -15,20 +13,23 @@ public class Utente {
     @GeneratedValue
     private UUID utenteId;
 
-
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false)
     private String cognome;
-    private int eta;
+
+    @Column(nullable = false)
+    private LocalDate dataDiNascita;
 
     public Utente() {
     }
 
     // costruttore con parametri
-    public Utente(String nome, String cognome, int eta) {
+    public Utente(String nome, String cognome, int year, int month, int day) {
         this.nome = nome;
         this.cognome = cognome;
-        this.eta = eta;
-
+        this.dataDiNascita = LocalDate.of(year, month, day);
     }
 
     public String getNome() {
@@ -47,16 +48,20 @@ public class Utente {
         this.cognome = cognome;
     }
 
-    public int getEta() {
-        return eta;
+    public LocalDate getEta() {
+        return dataDiNascita;
     }
 
-    public void setEta(int eta) {
-        this.eta = eta;
+    public void setDataDiNascita(int year, int month, int day) {
+        this.dataDiNascita = LocalDate.of(year, month, day);
     }
 
     public UUID getUtenteId() {
         return utenteId;
+    }
+
+    public LocalDate getDataDiNascita() {
+        return dataDiNascita;
     }
 
     @Override
@@ -65,7 +70,7 @@ public class Utente {
                 "id=" + utenteId +
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
-                ", eta=" + eta +
+                ", dataDiNascita=" + dataDiNascita +
                 '}';
     }
 }
