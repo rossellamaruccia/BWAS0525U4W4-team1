@@ -1,10 +1,8 @@
 package dao;
 
 
-import Exceptions.NotFoundException;
-import entities.Emittente;
+import exceptions.NotFoundException;
 import entities.Manutenzione;
-import entities.Parco_mezzi;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
