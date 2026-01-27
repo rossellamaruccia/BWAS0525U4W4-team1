@@ -1,16 +1,13 @@
 package entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table (name= "utenti")
+@Table(name = "utenti")
 public class Utente {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String nome;
@@ -18,6 +15,14 @@ public class Utente {
     private int eta;
 
     public Utente() {
+    }
+
+    // costruttore con parametri
+    public Utente(String nome, String cognome, int eta) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.eta = eta;
+
     }
 
     public String getNome() {
@@ -52,13 +57,5 @@ public class Utente {
                 ", cognome='" + cognome + '\'' +
                 ", eta=" + eta +
                 '}';
-    }
-
-    // costruttore con parametri
-    public Utente (String nome, String cognome, int eta) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.eta = eta;
-
     }
 }
