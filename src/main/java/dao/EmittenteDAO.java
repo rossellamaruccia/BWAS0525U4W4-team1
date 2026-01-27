@@ -26,14 +26,14 @@ public class EmittenteDAO {
     }
 
     //find by ID
-    public Emittente trovaPerId(UUID id) {
-        Emittente found = em.find(Emittente.class, id);
+    public Emittente trovaPerId(String id) {
+        Emittente found = em.find(Emittente.class, UUID.fromString(id));
         if (found == null) throw new NotFoundException(id);
         return found;
     }
 
     //fuori_servizio
-    public void setFuoriServizio(UUID id) {
+    public void setFuoriServizio(String id) {
         TypedQuery<DistributoreAutomatico> query = em.createQuery("SELECT d From DistributoreAutomatico d WHERE d.id = :id", DistributoreAutomatico.class);
         query.setParameter("id", id);
         DistributoreAutomatico found = query.getSingleResult();
