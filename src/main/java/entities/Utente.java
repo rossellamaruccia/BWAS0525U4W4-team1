@@ -3,27 +3,33 @@ package entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "utenti")
 public class Utente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue
+    private UUID utenteId;
 
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false)
     private String cognome;
-    private LocalDate data_di_nascita;
+
+    @Column(nullable = false)
+    private LocalDate dataDiNascita;
 
     public Utente() {
     }
 
     // costruttore con parametri
-    public Utente(String nome, String cognome, int yyyy, int dd, int mm) {
+    public Utente(String nome, String cognome, int year, int month, int day) {
         this.nome = nome;
         this.cognome = cognome;
-        this.data_di_nascita = LocalDate.of(yyyy, mm, dd);
+        this.dataDiNascita = LocalDate.of(year, month, day);
     }
 
     public String getNome() {
@@ -42,21 +48,29 @@ public class Utente {
         this.cognome = cognome;
     }
 
-    public LocalDate getDataDiNascita() {
-        return data_di_nascita;
+    public LocalDate getEta() {
+        return dataDiNascita;
     }
 
-    public void setEta(int yyyy, int mm, int dd) {
-        this.data_di_nascita = LocalDate.of(yyyy, mm, dd);
+    public void setDataDiNascita(int year, int month, int day) {
+        this.dataDiNascita = LocalDate.of(year, month, day);
+    }
+
+    public UUID getUtenteId() {
+        return utenteId;
+    }
+
+    public LocalDate getDataDiNascita() {
+        return dataDiNascita;
     }
 
     @Override
     public String toString() {
         return "Utente{" +
-                "id=" + id +
+                "id=" + utenteId +
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
-                ", eta=" + eta +
+                ", dataDiNascita=" + dataDiNascita +
                 '}';
     }
 }

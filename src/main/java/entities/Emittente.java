@@ -2,26 +2,24 @@ package entities;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) //DA DECIDERE
+@DiscriminatorColumn(name = "tipo_emittente")
+@Table(name = "emittenti")
 public abstract class Emittente {
-
-    @OneToMany(mappedBy = "emittente")
-    List<TitoloDiViaggio> titoli_di_viaggio = new ArrayList<>();
 
     @Id
     @GeneratedValue
-    @Column(name = "emittente_id")
-    private UUID id;
+    private UUID emittenteId;
+    // questo valore va collegato al biglietto
+
 
     public Emittente() {
     }
 
     public UUID getId() {
-        return id;
+        return emittenteId;
     }
 }

@@ -3,14 +3,15 @@ package entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tessere")
 public class Tessera {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long numTessera;
+    @GeneratedValue
+    private UUID tesseraId;
 
     @Column(nullable = false)
     private LocalDate dataEmissione;
@@ -26,8 +27,8 @@ public class Tessera {
         this.dataScadenza = dataEmissione.plusYears(1);
     }
 
-    public long getNumTessera() {
-        return numTessera;
+    public UUID getIdTessera() {
+        return tesseraId;
     }
 
     public LocalDate getDataEmissione() {
@@ -41,7 +42,7 @@ public class Tessera {
     @Override
     public String toString() {
         return "Tessera{" +
-                "numTessera=" + numTessera +
+                "numTessera=" + tesseraId +
                 ", dataEmissione=" + dataEmissione +
                 ", dataScadenza=" + dataScadenza +
                 '}';

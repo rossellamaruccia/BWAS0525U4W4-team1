@@ -9,22 +9,17 @@ import java.util.UUID;
 @Table(name = "Parco_mezzi")
 @DiscriminatorColumn(name = "mezzo")
 public abstract class Parco_mezzi {
+
     @Id
     @GeneratedValue
     @Column(name = "ID")
-    private UUID id;
-
+    private UUID mezzoId;
 
     public Parco_mezzi() {
     }
 
     public UUID getId() {
-        return id;
-    }
-
-
-    public void setId(UUID id) {
-        this.id = id;
+        return mezzoId;
     }
 
 
