@@ -12,6 +12,7 @@
         <class>entities.RivenditoreUfficiale</class>
         <class>entities.Tessera</class>
         <class>entities.TitoloDiViaggio</class>
+        <class>entities.Biglietto</class>
         <class>entities.Utente</class>
         <class>entities.Tratta</class>
         <class>entities.Abbonamento</class>
@@ -21,7 +22,7 @@
 
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/trasporti"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres"/>
-            <property name="jakarta.persistence.jdbc.password" value="1234"/>
+            <property name="jakarta.persistence.jdbc.password" value="root"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
 
