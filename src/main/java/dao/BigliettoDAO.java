@@ -33,7 +33,7 @@ public class BigliettoDAO {
         Biglietto found = em.find(Biglietto.class, UUID.fromString(id));
 
         if (found == null) {
-            throw new NotFoundException(id.toString());
+            throw new NotFoundException(id);
         }
         return found;
     }

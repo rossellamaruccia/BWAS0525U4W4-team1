@@ -1,5 +1,7 @@
 package dao;
 
+import entities.Abbonamento;
+import entities.Biglietto;
 import entities.TitoloDiViaggio;
 import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
@@ -17,11 +19,16 @@ public class TitoloDiViaggioDAO {
         this.em = em;
     }
 
-    public void save(TitoloDiViaggio titolo) {
+    public void salvaTitoloDiViaggio(TitoloDiViaggio titolo) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.persist(titolo);
         transaction.commit();
+        if (titolo instanceof Biglietto) {
+            System.out.println("Biglietto con id " + titolo.getId() + " salvato correttamente!");
+        } else if (titolo instanceof Abbonamento) {
+            System.out.println("Abbonamento con id " + titolo.getId() + " salvato correttamente!");
+        }
     }
 
     public TitoloDiViaggio trovaTitoloDaId(UUID id) {

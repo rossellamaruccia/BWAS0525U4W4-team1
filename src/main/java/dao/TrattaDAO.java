@@ -20,6 +20,7 @@ public class TrattaDAO {
         transaction.begin();
         em.persist(tratta);
         transaction.commit();
+        System.out.println("Tratta con id " + tratta.getId() + " salvata con successo!");
     }
 
     public void remove(String id_tratta) {
