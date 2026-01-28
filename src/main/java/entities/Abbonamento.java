@@ -1,15 +1,17 @@
 package entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import enums.FrequenzaAbbonamento;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
 
 @Entity
 public class Abbonamento extends TitoloDiViaggio {
-    @Column(name = "durata")
-    private int durata;
 
+    LocalDate dataScadenza;
+    @Column(name = "frequenza")
+    @Enumerated(EnumType.STRING)
+    private FrequenzaAbbonamento frequenza;
     @OneToOne
     @JoinColumn(name = "tessera")
     private Tessera tessera;
@@ -17,17 +19,23 @@ public class Abbonamento extends TitoloDiViaggio {
     public Abbonamento() {
     }
 
-    public Abbonamento(int durata, Tessera tessera) {
-        this.durata = durata;
+    public Abbonamento(Emittente emittente, FrequenzaAbbonamento frequenza, Tessera tessera, LocalDate dataEmissione) {
+        super(dataEmissione, emittente);
+        this.frequenza = frequenza;
         this.tessera = tessera;
+        if (this.frequenza == FrequenzaAbbonamento.SETTIMANALE) {
+            this.dataScadenza = dataEmissione.plusWeeks(1);
+        } else if (this.frequenza == FrequenzaAbbonamento.MENSILE) {
+            this.dataScadenza = dataEmissione.plusMonths(1);
+        }
     }
 
-    public int getDurata() {
-        return durata;
+    public FrequenzaAbbonamento getFrequenza() {
+        return frequenza;
     }
 
-    public void setDurata(int durata) {
-        this.durata = durata;
+    public void setFrequenza(FrequenzaAbbonamento frequenza) {
+        this.frequenza = frequenza;
     }
 
     public Tessera getTessera() {
@@ -36,5 +44,9 @@ public class Abbonamento extends TitoloDiViaggio {
 
     public void setTessera(Tessera tessera) {
         this.tessera = tessera;
+    }
+
+    public LocalDate getDataScadenza() {
+        return dataScadenza;
     }
 }
