@@ -25,7 +25,7 @@ public abstract class TitoloDiViaggio {
     public TitoloDiViaggio() {
     }
 
-    protected TitoloDiViaggio(String codiceUnivoco, LocalDateTime dataEmissione, Emittente emittente) {
+    protected TitoloDiViaggio(LocalDateTime dataEmissione, Emittente emittente) {
         this.dataEmissione = dataEmissione;
         this.emittente = emittente;
     }
