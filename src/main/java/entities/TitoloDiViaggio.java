@@ -2,7 +2,7 @@ package entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -16,7 +16,7 @@ public abstract class TitoloDiViaggio {
 
     // Data/ora di emissione del titolo
     @Column(name = "data_emissione", nullable = false)
-    private LocalDate dataEmissione;
+    private LocalDateTime dataEmissione;
 
     @ManyToOne
     @JoinColumn(name = "emittente_id", nullable = false)
@@ -25,8 +25,8 @@ public abstract class TitoloDiViaggio {
     public TitoloDiViaggio() {
     }
 
-    protected TitoloDiViaggio(int year, int month, int day, Emittente emittente) {
-        this.dataEmissione = LocalDate.of(year, month, day);
+    public TitoloDiViaggio(LocalDateTime dataEmissione, Emittente emittente) {
+        this.dataEmissione = dataEmissione;
         this.emittente = emittente;
     }
 
@@ -34,11 +34,11 @@ public abstract class TitoloDiViaggio {
         return id;
     }
 
-    public LocalDate getDataEmissione() {
+    public LocalDateTime getDataEmissione() {
         return dataEmissione;
     }
 
-    public void setDataEmissione(LocalDate dataEmissione) {
+    public void setDataEmissione(LocalDateTime dataEmissione) {
         this.dataEmissione = dataEmissione;
     }
 
