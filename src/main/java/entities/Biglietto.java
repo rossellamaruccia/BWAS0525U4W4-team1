@@ -19,12 +19,8 @@ public class Biglietto extends TitoloDiViaggio {
     public Biglietto() {
     }
 
-    public Biglietto(LocalDateTime dataEmissione, Emittente emittente) {
-        super(null, dataEmissione, emittente);
-    }
-
     public Biglietto(LocalDateTime dataEmissione, Emittente emittente, Parco_mezzi mezzo) {
-        super(null, dataEmissione, emittente);
+        super(dataEmissione, emittente);
         this.mezzo = mezzo;
     }
 

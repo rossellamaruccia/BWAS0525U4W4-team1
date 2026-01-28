@@ -6,9 +6,9 @@ import jakarta.persistence.Persistence;
 
 
 public class Application {
+    public static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasporti_pu");
 
     public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasporti_pu");
         EntityManager em = emf.createEntityManager();
         System.out.println("Hello World!");
     }
