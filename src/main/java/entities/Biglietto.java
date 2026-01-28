@@ -3,7 +3,6 @@ package entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "biglietto")
@@ -19,8 +18,8 @@ public class Biglietto extends TitoloDiViaggio {
     public Biglietto() {
     }
 
-    public Biglietto(LocalDateTime dataEmissione, Emittente emittente, Parco_mezzi mezzo) {
-        super(dataEmissione, emittente);
+    public Biglietto(int year, int month, int day, Emittente emittente, Parco_mezzi mezzo) {
+        super(year, month, day, emittente);
         this.mezzo = mezzo;
     }
 

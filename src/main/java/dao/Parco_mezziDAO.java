@@ -1,6 +1,7 @@
 package dao;
 
 import entities.Parco_mezzi;
+import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
@@ -26,20 +27,18 @@ public class Parco_mezziDAO {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         TypedQuery<Parco_mezzi> query = em.createQuery("DELETE FROM Parco_mezzi a WHERE a.id = :id", Parco_mezzi.class);
-        query.setParameter("id", id);
+        query.setParameter("id", UUID.fromString(id));
         String Deleted = String.valueOf(query.executeUpdate());
         transaction.commit();
 
     }
 
     public Parco_mezzi findById(String id) {
-        TypedQuery<Parco_mezzi> query = em.createQuery(
-                "SELECT c FROM Parco_mezzi c WHERE c.id = :id",
-                Parco_mezzi.class
-        );
-        query.setParameter("id", id);
-
-        return query.getSingleResult();
-
+        // Semplice, veloce e gestisce automaticamente l'ereditarietà
+        Parco_mezzi found = em.find(Parco_mezzi.class, UUID.fromString(id));
+        if (found == null) {
+            throw new NotFoundException(id);
+        }
+        return found;
     }
 }

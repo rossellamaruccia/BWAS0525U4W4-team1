@@ -5,8 +5,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
-import java.time.LocalDate;
-
 @Entity
 @DiscriminatorValue("Tram")
 public class Tram extends Parco_mezzi {
@@ -18,8 +16,8 @@ public class Tram extends Parco_mezzi {
 
     ;
 
-    public Tram(Stato stato, LocalDate data_attivazione, Tratta tratta) {
-        super(stato, data_attivazione, tratta);
+    public Tram(Stato stato, int year, int month, int day, Tratta tratta) {
+        super(stato, year, month, day, tratta);
         this.capienza = 50;
     }
 

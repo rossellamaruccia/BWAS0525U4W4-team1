@@ -3,12 +3,12 @@ package entities;
 import enums.FrequenzaAbbonamento;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 public class Abbonamento extends TitoloDiViaggio {
 
-    LocalDateTime dataScadenza;
+    LocalDate dataScadenza;
     @Column(name = "frequenza")
     @Enumerated(EnumType.STRING)
     private FrequenzaAbbonamento frequenza;
@@ -19,14 +19,14 @@ public class Abbonamento extends TitoloDiViaggio {
     public Abbonamento() {
     }
 
-    public Abbonamento(Emittente emittente, FrequenzaAbbonamento frequenza, Tessera tessera, LocalDateTime dataEmissione) {
-        super(dataEmissione, emittente);
+    public Abbonamento(Emittente emittente, FrequenzaAbbonamento frequenza, Tessera tessera, int year, int month, int day) {
+        super(year, month, day, emittente);
         this.frequenza = frequenza;
         this.tessera = tessera;
-        if (this.frequenza == FrequenzaAbbonamento.SETTIMANALE) {
-            this.dataScadenza = dataEmissione.plusWeeks(1);
-        } else if (this.frequenza == FrequenzaAbbonamento.MENSILE) {
-            this.dataScadenza = dataEmissione.plusMonths(1);
+        if (frequenza == FrequenzaAbbonamento.SETTIMANALE) {
+            this.dataScadenza = this.getDataEmissione().plusWeeks(1);
+        } else if (frequenza == FrequenzaAbbonamento.MENSILE) {
+            this.dataScadenza = this.getDataEmissione().plusMonths(1);
         }
     }
 
@@ -46,7 +46,7 @@ public class Abbonamento extends TitoloDiViaggio {
         this.tessera = tessera;
     }
 
-    public LocalDateTime getDataScadenza() {
+    public LocalDate getDataScadenza() {
         return dataScadenza;
     }
 }
