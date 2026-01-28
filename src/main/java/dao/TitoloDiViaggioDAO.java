@@ -69,7 +69,9 @@ public class TitoloDiViaggioDAO {
     }
 
     public List<Biglietto> cercaBigliettiVidimatiPerMezzo(Parco_mezzi mezzo) {
-        TypedQuery<Biglietto> query = em.createQuery("SELECT b FROM Biglietto b WHERE b.mezzo = :mezzo", Biglietto.class);
+        TypedQuery<Biglietto> query = em.createQuery(
+                "SELECT b FROM Biglietto b WHERE b.mezzo = :mezzo AND b.data_vidimazione IS NOT NULL",
+                Biglietto.class);
         query.setParameter("mezzo", mezzo);
         return query.getResultList();
     }

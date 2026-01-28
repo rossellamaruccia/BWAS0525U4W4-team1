@@ -9,7 +9,7 @@ import java.time.LocalDate;
 public class Biglietto extends TitoloDiViaggio {
 
     @Column(name = "data_vidimazione")
-    private LocalDate dataVidimazione;
+    private LocalDate data_vidimazione;
 
     @ManyToOne
     @JoinColumn(name = "id_mezzo")
@@ -23,11 +23,11 @@ public class Biglietto extends TitoloDiViaggio {
     }
 
     public LocalDate getDataVidimazione() {
-        return dataVidimazione;
+        return data_vidimazione;
     }
 
-    public void setDataVidimazione(LocalDate dataVidimazione) {
-        this.dataVidimazione = dataVidimazione;
+    public void setDataVidimazione(LocalDate data_vidimazione) {
+        this.data_vidimazione = data_vidimazione;
     }
 
     public Parco_mezzi getMezzo() {
@@ -44,7 +44,7 @@ public class Biglietto extends TitoloDiViaggio {
                 "id=" + getId() +
                 ", dataEmissione=" + getDataEmissione() +
                 ", emittente=" + getEmittente() +
-                ", dataVidimazione=" + dataVidimazione +
+                ", data_vidimazione=" + data_vidimazione +
                 ", mezzo=" + mezzo +
                 '}';
     }

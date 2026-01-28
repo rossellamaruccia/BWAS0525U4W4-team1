@@ -9,11 +9,11 @@ import java.util.UUID;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "Parco_mezzi")
-@DiscriminatorColumn(name = "mezzo")
+@DiscriminatorColumn(name = "tipo_mezzo")
 public abstract class Parco_mezzi {
     @Id
     @GeneratedValue
-    @Column(name = "ID")
+    @Column(name = "id_mezzo")
     private UUID id;
 
     @Enumerated(EnumType.STRING)
