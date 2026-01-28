@@ -29,6 +29,6 @@ public class Bus extends Parco_mezzi {
 
     @Override
     public String toString() {
-        return "Bus{}" + super.toString();
+        return "Bus{" + super.toString() + " ,capienza=30}";
     }
 }

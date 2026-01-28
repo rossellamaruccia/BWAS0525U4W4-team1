@@ -69,10 +69,10 @@ public abstract class Parco_mezzi {
 
     @Override
     public String toString() {
-        return "Parco_mezzi{" +
+        return
                 "id=" + id +
-                ", stato=" + stato +
-                ", data_attivazione=" + data_attivazione +
-                '}';
+                        ", stato=" + stato +
+                        ", data_attivazione=" + data_attivazione
+                ;
     }
 }

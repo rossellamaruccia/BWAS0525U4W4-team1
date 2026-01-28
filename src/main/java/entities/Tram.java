@@ -31,6 +31,6 @@ public class Tram extends Parco_mezzi {
 
     @Override
     public String toString() {
-        return "Tram{}" + super.toString();
+        return "Tram{" + super.toString() + " ,capienza=30}";
     }
 }

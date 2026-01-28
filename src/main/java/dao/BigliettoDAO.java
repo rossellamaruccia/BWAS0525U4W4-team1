@@ -1,9 +1,9 @@
 package dao;
 
 import entities.Biglietto;
+import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import exceptions.NotFoundException;
 
 import java.util.UUID;
 
@@ -28,9 +28,9 @@ public class BigliettoDAO {
         System.out.println("Il biglietto " + biglietto.getId() + " è stato salvato con successo");
     }
 
-    public Biglietto trovaBigliettoDaId(UUID id) {
+    public Biglietto trovaBigliettoDaId(String id) {
 
-        Biglietto found = em.find(Biglietto.class, id);
+        Biglietto found = em.find(Biglietto.class, UUID.fromString(id));
 
         if (found == null) {
             throw new NotFoundException(id.toString());
@@ -38,7 +38,7 @@ public class BigliettoDAO {
         return found;
     }
 
-    public void cancellaBigliettoDaId(UUID id) {
+    public void cancellaBigliettoDaId(String id) {
         Biglietto found = trovaBigliettoDaId(id);
 
         EntityTransaction transaction = em.getTransaction();
