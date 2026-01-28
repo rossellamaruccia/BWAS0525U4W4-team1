@@ -51,4 +51,8 @@ public class Tratta {
     public void setTempo_percorrenza_standard(double tempo_percorrenza_standard) {
         this.tempo_percorrenza_standard = tempo_percorrenza_standard;
     }
+
+    public UUID getId() {
+        return id;
+    }
 }
