@@ -1,10 +1,11 @@
 package dao;
 
+import entities.Biglietto;
 import entities.Parco_mezzi;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-// manca import Biglietto
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class VidimazioneDAO {
@@ -34,7 +35,7 @@ public class VidimazioneDAO {
         transaction.begin();
 
         // data vidimazione
-        biglietto.setDataVidimazione(LocalDateTime.now());
+        biglietto.setDataVidimazione(LocalDate.now());
         //salva modifica
         transaction.commit();
         System.out.println("Biglietto vidimato sul mezzo " + mezzoId);
