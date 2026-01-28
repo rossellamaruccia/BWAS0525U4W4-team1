@@ -24,4 +24,11 @@ public class DistributoreAutomatico extends Emittente {
     public void setIn_servizio(boolean in_servizio) {
         this.in_servizio = in_servizio;
     }
+
+    @Override
+    public String toString() {
+        return "DistributoreAutomatico{" + super.toString() +
+                "in_servizio=" + in_servizio +
+                '}';
+    }
 }

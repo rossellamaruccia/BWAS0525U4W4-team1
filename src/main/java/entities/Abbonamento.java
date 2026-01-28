@@ -6,36 +6,40 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "abbonamento")
 public class Abbonamento extends TitoloDiViaggio {
 
-    LocalDate dataScadenza;
-    @Column(name = "frequenza")
-    @Enumerated(EnumType.STRING)
-    private FrequenzaAbbonamento frequenza;
+    @Column(name = "data_scadenza")
+    private LocalDate dataScadenza;
+
+    @Column(name = "durata")
+    @Enumerated(EnumType.ORDINAL)
+    private FrequenzaAbbonamento durata;
+
     @OneToOne
-    @JoinColumn(name = "tessera")
+    @JoinColumn(name = "id_tessera")
     private Tessera tessera;
 
     public Abbonamento() {
     }
 
-    public Abbonamento(Emittente emittente, FrequenzaAbbonamento frequenza, Tessera tessera, LocalDate dataEmissione) {
-        super(dataEmissione, emittente);
-        this.frequenza = frequenza;
+    public Abbonamento(int year, int month, int day, Emittente emittente, FrequenzaAbbonamento durata, Tessera tessera) {
+        super(year, month, day, emittente);
+        this.durata = durata;
         this.tessera = tessera;
-        if (this.frequenza == FrequenzaAbbonamento.SETTIMANALE) {
-            this.dataScadenza = dataEmissione.plusWeeks(1);
-        } else if (this.frequenza == FrequenzaAbbonamento.MENSILE) {
-            this.dataScadenza = dataEmissione.plusMonths(1);
+        if (this.durata == FrequenzaAbbonamento.SETTIMANALE) {
+            this.dataScadenza = this.getDataEmissione().plusWeeks(1);
+        } else if (this.durata == FrequenzaAbbonamento.MENSILE) {
+            this.dataScadenza = this.getDataEmissione().plusMonths(1);
         }
     }
 
-    public FrequenzaAbbonamento getFrequenza() {
-        return frequenza;
+    public FrequenzaAbbonamento getDurata() {
+        return durata;
     }
 
-    public void setFrequenza(FrequenzaAbbonamento frequenza) {
-        this.frequenza = frequenza;
+    public void setDurata(FrequenzaAbbonamento durata) {
+        this.durata = durata;
     }
 
     public Tessera getTessera() {
@@ -48,5 +52,17 @@ public class Abbonamento extends TitoloDiViaggio {
 
     public LocalDate getDataScadenza() {
         return dataScadenza;
+    }
+
+    @Override
+    public String toString() {
+        return "Abbonamento{" +
+                "id=" + getId() +
+                ", dataEmissione=" + getDataEmissione() +
+                ", emittente=" + getEmittente() +
+                ", durata=" + durata +
+                ", dataScadenza=" + dataScadenza +
+                ", tessera=" + tessera +
+                '}';
     }
 }

@@ -1,6 +1,7 @@
 package dao;
 
 import entities.Tratta;
+import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -21,11 +22,19 @@ public class TrattaDAO {
         transaction.commit();
     }
 
-    public void remove(UUID id_tratta) {
+    public void remove(String id_tratta) {
         EntityTransaction transaction = em.getTransaction();
-        Tratta found = em.find(Tratta.class, id_tratta);
+        Tratta found = em.find(Tratta.class, UUID.fromString(id_tratta));
         transaction.begin();
         em.remove(found);
         transaction.commit();
+    }
+
+    public Tratta trovaPerID(String id) {
+        Tratta found = em.find(Tratta.class, UUID.fromString(id));
+        if (found == null) {
+            throw new NotFoundException(id);
+        }
+        return found;
     }
 }

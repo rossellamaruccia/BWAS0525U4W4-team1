@@ -14,11 +14,18 @@ public abstract class Emittente {
     @GeneratedValue
     private UUID emittenteId;
     // questo valore va collegato al biglietto
-    
+
     public Emittente() {
     }
 
     public UUID getId() {
         return emittenteId;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "id=" + emittenteId
+                ;
     }
 }

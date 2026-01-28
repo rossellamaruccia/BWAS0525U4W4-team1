@@ -18,8 +18,8 @@ public class Biglietto extends TitoloDiViaggio {
     public Biglietto() {
     }
 
-    public Biglietto(LocalDate dataEmissione, Emittente emittente, Parco_mezzi mezzo) {
-        super(dataEmissione, emittente);
+    public Biglietto(int year, int month, int day, Emittente emittente, Parco_mezzi mezzo) {
+        super(year, month, day, emittente);
         this.mezzo = mezzo;
     }
 

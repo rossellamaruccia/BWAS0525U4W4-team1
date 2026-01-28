@@ -31,9 +31,9 @@ public abstract class Parco_mezzi {
     }
 
 
-    public Parco_mezzi(Stato stato, LocalDate data_attivazione, Tratta tratta) {
+    public Parco_mezzi(Stato stato, int year, int month, int day, Tratta tratta) {
         this.stato = stato;
-        this.data_attivazione = data_attivazione;
+        this.data_attivazione = LocalDate.of(year, month, day);
         this.tratta = tratta;
     }
 
@@ -69,10 +69,10 @@ public abstract class Parco_mezzi {
 
     @Override
     public String toString() {
-        return "Parco_mezzi{" +
+        return
                 "id=" + id +
-                ", stato=" + stato +
-                ", data_attivazione=" + data_attivazione +
-                '}';
+                        ", stato=" + stato +
+                        ", data_attivazione=" + data_attivazione
+                ;
     }
 }

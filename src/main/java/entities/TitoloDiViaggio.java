@@ -25,8 +25,8 @@ public abstract class TitoloDiViaggio {
     public TitoloDiViaggio() {
     }
 
-    protected TitoloDiViaggio(LocalDate dataEmissione, Emittente emittente) {
-        this.dataEmissione = dataEmissione;
+    public TitoloDiViaggio(int year, int month, int day, Emittente emittente) {
+        this.dataEmissione = LocalDate.of(year, month, day);
         this.emittente = emittente;
     }
 
