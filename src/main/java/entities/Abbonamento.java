@@ -6,14 +6,14 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "abbonamento")
+@Table(name = "abbonamenti")
 public class Abbonamento extends TitoloDiViaggio {
 
     @Column(name = "data_scadenza")
     private LocalDate dataScadenza;
 
     @Column(name = "durata")
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     private FrequenzaAbbonamento durata;
 
     @OneToOne
@@ -38,17 +38,11 @@ public class Abbonamento extends TitoloDiViaggio {
         return durata;
     }
 
-    public void setDurata(FrequenzaAbbonamento durata) {
-        this.durata = durata;
-    }
 
     public Tessera getTessera() {
         return tessera;
     }
 
-    public void setTessera(Tessera tessera) {
-        this.tessera = tessera;
-    }
 
     public LocalDate getDataScadenza() {
         return dataScadenza;
@@ -66,3 +60,7 @@ public class Abbonamento extends TitoloDiViaggio {
                 '}';
     }
 }
+
+// metodo per il rinnovo di un abbonamento scaduto
+// verifica scadenza di un abbonamento (se la data di scadenza è maggiore di oggi ->
+// sout "l'abbonamento è valido" else sout "l'abbonamento è scaduto")

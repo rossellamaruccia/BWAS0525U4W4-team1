@@ -1,10 +1,13 @@
 package dao;
 
+import entities.Biglietto;
+import entities.Parco_mezzi;
 import entities.Utente;
 import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 public class UtenteDAO {
@@ -28,5 +31,34 @@ public class UtenteDAO {
             throw new NotFoundException(id);
         }
         return found;
+    }
+
+    public void vidimaBiglietto(String bigliettoId, String mezzoId) {
+        // cerco il mezzo su parco mezzi
+        Parco_mezzi mezzo = em.find(Parco_mezzi.class, UUID.fromString(mezzoId));
+        if (mezzo == null) {
+            System.out.println("Mezzo non trovato");
+            return;
+        }
+
+        Biglietto biglietto = em.find(Biglietto.class, UUID.fromString(bigliettoId));
+        if (biglietto == null) {
+            System.out.println("Biglietto non trovato");
+            return;
+        } else if (biglietto.getDataVidimazione() != null) {
+            System.out.println("Biglietto già vidimato");
+        } else {
+
+            // transazione
+            EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
+
+            // data vidimazione
+            biglietto.setDataVidimazione(LocalDate.now());
+            biglietto.setMezzo(mezzo);
+            //salva modifica
+            transaction.commit();
+            System.out.println("Biglietto vidimato sul mezzo " + mezzoId);
+        }
     }
 }

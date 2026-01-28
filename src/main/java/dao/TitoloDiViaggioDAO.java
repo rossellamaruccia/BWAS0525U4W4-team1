@@ -2,6 +2,7 @@ package dao;
 
 import entities.Abbonamento;
 import entities.Biglietto;
+import entities.Parco_mezzi;
 import entities.TitoloDiViaggio;
 import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
@@ -66,4 +67,18 @@ public class TitoloDiViaggioDAO {
         transaction.commit();
         return resultList;
     }
+
+    public List<Biglietto> cercaBigliettiVidimatiPerMezzo(Parco_mezzi mezzo) {
+        TypedQuery<Biglietto> query = em.createQuery("SELECT b FROM Biglietto b WHERE b.mezzo = :mezzo", Biglietto.class);
+        query.setParameter("mezzo", mezzo);
+        return query.getResultList();
+    }
+
+    public List<Biglietto> cercaBigliettiPerDataVidimazione(int yyyy, int mm, int dd) {
+        LocalDate date = LocalDate.of(yyyy, mm, dd);
+        TypedQuery<Biglietto> query = em.createQuery("SELECT b FROM Biglietto b WHERE b.dataVidimazione = :date", Biglietto.class);
+        query.setParameter("date", date);
+        return query.getResultList();
+    }
 }
+

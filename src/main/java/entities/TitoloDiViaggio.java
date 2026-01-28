@@ -6,8 +6,8 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name = "titoli_di_viaggio")
-@Inheritance(strategy = InheritanceType.JOINED)
+// @Table(name = "titoli_di_viaggio")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class TitoloDiViaggio {
 
     @Id
@@ -46,7 +46,7 @@ public abstract class TitoloDiViaggio {
         return emittente;
     }
 
-    public void setEmittenteId(Emittente emittente) {
+    public void setEmittente(Emittente emittente) {
         this.emittente = emittente;
     }
 
@@ -55,7 +55,7 @@ public abstract class TitoloDiViaggio {
         return "TitoloDiViaggio{" +
                 "id=" + id +
                 ", dataEmissione=" + dataEmissione +
-                ", emittenteId=" + emittente +
+                ", ID =" + emittente +
                 '}';
     }
 }
