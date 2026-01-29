@@ -9,7 +9,6 @@ import exceptions.NotFoundException;
 import exceptions.NotPossibleException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.RollbackException;
 import jakarta.persistence.TypedQuery;
 
 import java.util.UUID;
@@ -22,7 +21,12 @@ public class ManutenzioneDAO {
     }
 
     public void save(Manutenzione manutenzione) {
-        try {
+        TypedQuery<Manutenzione> query = em.createQuery("SELECT m FROM Manutenzione m WHERE m.statoManutenzione = IN_CORSO", Manutenzione.class);
+
+        if (query.getSingleResultOrNull() != null) {
+            throw new NotPossibleException(query.getSingleResultOrNull().getId().toString());
+        } else {
+
             EntityTransaction transaction = em.getTransaction();
             Parco_mezzi mezzo = manutenzione.getMezzo();
             transaction.begin();
@@ -35,8 +39,6 @@ public class ManutenzioneDAO {
 
             transaction.commit();
             System.out.println("Manutenzione con id: " + manutenzione.getId() + " salvata correttamente!");
-        } catch (RollbackException ex) {
-            throw new NotPossibleException(manutenzione.getMezzo().getId().toString());
         }
     }
 
@@ -47,12 +49,13 @@ public class ManutenzioneDAO {
     }
 
     public void trovaPerIdEcancella(String id) {
+        Manutenzione found = this.trovaPerId(id);
+        if (found == null) throw new NotFoundException(id);
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        TypedQuery<Manutenzione> query = em.createQuery("DELETE FROM Manutenzione a WHERE a.id = :id", Manutenzione.class);
-        query.setParameter("id", id);
-        String Deleted = String.valueOf(query.executeUpdate());
+        em.remove(found);
         transaction.commit();
+        System.out.println("Manutenzione al mezzo con id: " + found.getMezzo() + " eliminata con successo!");
     }
 
     public void fineManutenzione(Parco_mezzi mezzo) {

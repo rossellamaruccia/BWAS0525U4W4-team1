@@ -37,6 +37,7 @@ public abstract class Parco_mezzi {
     public Parco_mezzi(Tratta tratta) {
         this.data_attivazione = LocalDate.now();
         this.tratta = tratta;
+        this.stato = StatoMezzo.IN_FUNZIONE;
     }
 
 
