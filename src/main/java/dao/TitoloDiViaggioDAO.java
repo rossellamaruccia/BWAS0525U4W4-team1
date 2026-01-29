@@ -32,17 +32,17 @@ public class TitoloDiViaggioDAO {
         }
     }
 
-    public TitoloDiViaggio trovaTitoloDaId(UUID id) {
+    public TitoloDiViaggio trovaTitoloDaId(String id) {
 
-        TitoloDiViaggio found = em.find(TitoloDiViaggio.class, id);
+        TitoloDiViaggio found = em.find(TitoloDiViaggio.class, UUID.fromString(id));
 
         if (found == null) {
-            throw new NotFoundException(id.toString());
+            throw new NotFoundException(id);
         }
         return found;
     }
 
-    public void cancellaTitoloDaId(UUID id) {
+    public void cancellaTitoloDaId(String id) {
         TitoloDiViaggio found = trovaTitoloDaId(id);
 
         EntityTransaction transaction = em.getTransaction();
@@ -56,11 +56,11 @@ public class TitoloDiViaggioDAO {
         System.out.println("Titolo con id " + id + " eliminato con successo");
     }
 
-    public List<TitoloDiViaggio> trovaTitoliperEmittenteEDate(UUID emittente_id, LocalDate startDate, LocalDate endDate) {
+    public List<TitoloDiViaggio> trovaTitoliperEmittenteEDate(String emittente_id, LocalDate startDate, LocalDate endDate) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         TypedQuery<TitoloDiViaggio> query = em.createQuery("SELECT t FROM TitoloDiViaggio t WHERE t.emittente_id = :emittente_id AND t.data_emissione > :startDate AND t.data_emissione < :endDate", TitoloDiViaggio.class);
-        query.setParameter("emittente_id", emittente_id);
+        query.setParameter("emittente_id", UUID.fromString(emittente_id));
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         List<TitoloDiViaggio> resultList = query.getResultList();
@@ -81,6 +81,26 @@ public class TitoloDiViaggioDAO {
         TypedQuery<Biglietto> query = em.createQuery("SELECT b FROM Biglietto b WHERE b.dataVidimazione = :date", Biglietto.class);
         query.setParameter("date", date);
         return query.getResultList();
+    }
+
+    // Trova abbonamento per numero tessera
+    public Abbonamento findByTessera(String tesseraId) {
+        TypedQuery<Abbonamento> query = em.createQuery(
+                "SELECT a FROM Abbonamento a WHERE a.tessera.tesseraId = :tesseraId",
+                Abbonamento.class
+        );
+        query.setParameter("tesseraId", UUID.fromString(tesseraId));
+        return query.getSingleResult();
+    }
+
+    // Verifica se l'abbonamento è scaduto
+    public boolean verificaValidita(String tesseraId) {
+        try {
+            Abbonamento abbonamento = findByTessera(tesseraId);
+            return abbonamento.getDataScadenza().isAfter(LocalDate.now());
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
 

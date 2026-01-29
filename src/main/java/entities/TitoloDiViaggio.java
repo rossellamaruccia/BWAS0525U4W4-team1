@@ -25,8 +25,8 @@ public abstract class TitoloDiViaggio {
     public TitoloDiViaggio() {
     }
 
-    public TitoloDiViaggio(int year, int month, int day, Emittente emittente) {
-        this.dataEmissione = LocalDate.of(year, month, day);
+    public TitoloDiViaggio(Emittente emittente) {
+        this.dataEmissione = LocalDate.now();
         this.emittente = emittente;
     }
 
@@ -38,17 +38,10 @@ public abstract class TitoloDiViaggio {
         return dataEmissione;
     }
 
-    public void setDataEmissione(LocalDate dataEmissione) {
-        this.dataEmissione = dataEmissione;
-    }
-
     public Emittente getEmittente() {
         return emittente;
     }
 
-    public void setEmittente(Emittente emittente) {
-        this.emittente = emittente;
-    }
 
     @Override
     public String toString() {

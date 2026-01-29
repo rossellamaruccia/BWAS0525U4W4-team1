@@ -18,8 +18,8 @@ public class Biglietto extends TitoloDiViaggio {
     public Biglietto() {
     }
 
-    public Biglietto(int year, int month, int day, Emittente emittente) {
-        super(year, month, day, emittente);
+    public Biglietto(Emittente emittente) {
+        super(emittente);
     }
 
     public LocalDate getDataVidimazione() {
@@ -27,6 +27,7 @@ public class Biglietto extends TitoloDiViaggio {
     }
 
     public void setDataVidimazione(LocalDate data_vidimazione) {
+
         this.data_vidimazione = data_vidimazione;
     }
 

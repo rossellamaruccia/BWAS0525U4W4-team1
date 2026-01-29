@@ -18,17 +18,17 @@ public class Percorrenza_tratta {
     @JoinColumn(name = "mezzo")
     private Parco_mezzi mezzo;
 
-    @Column(name = "percorrenza_standard")
-    private double percorrenza_standard;
+//    @Column(name = "percorrenza_standard")
+//    private double percorrenza_standard;
 
     @Column(name = "percorrenza_effettiva")
     private double percorrenza_effettiva;
 
-    @Column(name = "partenza")
-    private String partenza;
-
-    @Column(name = "capolinea")
-    private String capolinea;
+//    @Column(name = "partenza")
+//    private String partenza;
+//
+//    @Column(name = "capolinea")
+//    private String capolinea;
 
     public Percorrenza_tratta() {
     }
@@ -40,23 +40,24 @@ public class Percorrenza_tratta {
         } else {
             throw new NotPossibleException();
         }
-        ;
-        this.percorrenza_standard = tratta.getTempo_percorrenza_standard();
-        this.partenza = tratta.getPartenza();
-        this.capolinea = tratta.getCapolinea();
         this.percorrenza_effettiva = percorrenza_effettiva;
     }
 
     public double getPercorrenza_standard() {
-        return percorrenza_standard;
+        return tratta.getTempo_percorrenza_standard();
     }
-
 
     public double getPercorrenza_effettiva() {
         return percorrenza_effettiva;
     }
 
-    public void setPercorrenza_effettiva(double percorrenza_effettiva) {
-        this.percorrenza_effettiva = percorrenza_effettiva;
+    public String getPartenza() {
+        return tratta.getPartenza();
     }
+
+    public String getCapolinea() {
+        return tratta.getCapolinea();
+    }
+
+
 }

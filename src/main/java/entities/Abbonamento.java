@@ -23,8 +23,8 @@ public class Abbonamento extends TitoloDiViaggio {
     public Abbonamento() {
     }
 
-    public Abbonamento(int year, int month, int day, Emittente emittente, FrequenzaAbbonamento durata, Tessera tessera) {
-        super(year, month, day, emittente);
+    public Abbonamento(Emittente emittente, FrequenzaAbbonamento durata, Tessera tessera) {
+        super(emittente);
         this.durata = durata;
         this.tessera = tessera;
         if (this.durata == FrequenzaAbbonamento.SETTIMANALE) {
@@ -37,7 +37,6 @@ public class Abbonamento extends TitoloDiViaggio {
     public FrequenzaAbbonamento getDurata() {
         return durata;
     }
-
 
     public Tessera getTessera() {
         return tessera;
