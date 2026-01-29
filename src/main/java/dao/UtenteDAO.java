@@ -33,8 +33,20 @@ public class UtenteDAO {
         return found;
     }
 
+    public void removeById(String id) {
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        Utente found = em.find(Utente.class, UUID.fromString(id));
+        if (found == null) {
+            throw new NotFoundException(id);
+        }
+        em.remove(found);
+        transaction.commit();
+        System.out.println("Utente cancellato.");
+    }
+
     public void vidimaBiglietto(String bigliettoId, String mezzoId) {
-        
+
         Parco_mezzi mezzo = em.find(Parco_mezzi.class, UUID.fromString(mezzoId));
         if (mezzo == null) {
             System.out.println("Mezzo non trovato");

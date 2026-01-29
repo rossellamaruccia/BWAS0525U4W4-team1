@@ -23,6 +23,9 @@ public class Utente {
     @Column(nullable = false)
     private LocalDate dataDiNascita;
 
+    @OneToOne(mappedBy = "possessore")
+    private Tessera tessera;
+
     public Utente() {
     }
 
@@ -37,24 +40,8 @@ public class Utente {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getCognome() {
         return cognome;
-    }
-
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
-
-    public LocalDate getEta() {
-        return dataDiNascita;
-    }
-
-    public void setDataDiNascita(int year, int month, int day) {
-        this.dataDiNascita = LocalDate.of(year, month, day);
     }
 
     public UUID getUtenteId() {
@@ -63,6 +50,10 @@ public class Utente {
 
     public LocalDate getDataDiNascita() {
         return dataDiNascita;
+    }
+
+    public boolean haTessera() {
+        return this.tessera != null;
     }
 
     @Override
