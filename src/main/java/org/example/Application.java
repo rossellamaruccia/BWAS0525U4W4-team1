@@ -2,9 +2,13 @@ package org.example;
 
 
 import dao.TesseraDAO;
+import dao.TitoloDiViaggioDAO;
 import dao.UtenteDAO;
+import entities.Abbonamento;
+import entities.DistributoreAutomatico;
 import entities.Tessera;
 import entities.Utente;
+import enums.FrequenzaAbbonamento;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -20,6 +24,7 @@ public class Application {
 
         UtenteDAO ud = new UtenteDAO(em);
         TesseraDAO td = new TesseraDAO(em);
+        TitoloDiViaggioDAO tdvd = new TitoloDiViaggioDAO(em);
 
         Utente u1 = new Utente("Rossella", "Maruccia", 1994, 2, 6);
 
@@ -71,8 +76,38 @@ public class Application {
                                         String id_tessera = scanner.nextLine();
                                         Tessera t2 = td.trovaTesseraDalNumero(id_tessera);
                                         System.out.println(t2.getDataScadenza());
+                                        running = false;
                                         break;
                                     case 4:
+                                        //comprare o rinnovare un abbonamento
+                                        System.out.println("Inserisci il tuo numero di tessera: ");
+                                        String id_tessera1 = scanner.nextLine();
+                                        Tessera t3 = td.trovaTesseraDalNumero(id_tessera1);
+
+                                        if (t3.getAbbonamento() != null) {
+                                            Abbonamento a1 = t3.getAbbonamento();
+                                            a1.setDataScadenza();
+                                        } else {
+                                            DistributoreAutomatico d1 = new DistributoreAutomatico(true);
+                                            System.out.println("seleziona 1 per abbonamento settimanale, 2 per mensile");
+                                            scelta = Integer.parseInt(scanner.nextLine());
+                                            switch (scelta) {
+                                                case 1:
+                                                    Abbonamento a2 = new Abbonamento(d1, FrequenzaAbbonamento.SETTIMANALE, t3);
+                                                    tdvd.salvaTitoloDiViaggio(a2);
+                                                    System.out.println("Abbonamento con id: " + a2.getId() + "creato. Scadrà il " + a2.getDataScadenza());
+                                                    break;
+                                                case 2:
+                                                    Abbonamento a3 = new Abbonamento(d1, FrequenzaAbbonamento.MENSILE, t3);
+                                                    tdvd.salvaTitoloDiViaggio(a3);
+                                                    System.out.println("Abbonamento con id: " + a3.getId() + "creato. Scadrà il " + a3.getDataScadenza());
+                                                    running = false;
+                                                    break;
+                                                default:
+                                                    System.out.println("Hai inserito un valore non valido.");
+                                                    break;
+                                            }
+                                        }
                                         ;
                                     case 5:
                                         ;
@@ -104,7 +139,6 @@ public class Application {
                 System.out.println("Errore");
             }
         }
-
 
         em.close();
         emf.close();

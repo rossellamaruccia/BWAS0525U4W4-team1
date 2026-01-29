@@ -46,6 +46,14 @@ public class Abbonamento extends TitoloDiViaggio {
         return dataScadenza;
     }
 
+    public void setDataScadenza() {
+        if (this.durata == FrequenzaAbbonamento.SETTIMANALE) {
+            this.dataScadenza = LocalDate.now().plusWeeks(1);
+        } else {
+            this.dataScadenza = LocalDate.now().plusMonths(1);
+        }
+    }
+
     @Override
     public String toString() {
         return "Abbonamento{" +
