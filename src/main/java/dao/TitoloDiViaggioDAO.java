@@ -94,12 +94,11 @@ public class TitoloDiViaggioDAO {
     }
 
     // Verifica se l'abbonamento è scaduto
-    public boolean verificaValidita(String tesseraId) {
-        try {
-            Abbonamento abbonamento = findByTessera(tesseraId);
-            return abbonamento.getDataScadenza().isAfter(LocalDate.now());
-        } catch (Exception e) {
+    public boolean verificaValidita(Abbonamento abb) {
+        if (abb.getDataScadenza().isAfter(LocalDate.now())) {
             return false;
+        } else {
+            return true;
         }
     }
 }

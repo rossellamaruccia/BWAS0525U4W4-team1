@@ -18,17 +18,8 @@ public class Percorrenza_tratta {
     @JoinColumn(name = "mezzo")
     private Parco_mezzi mezzo;
 
-//    @Column(name = "percorrenza_standard")
-//    private double percorrenza_standard;
-
     @Column(name = "percorrenza_effettiva")
     private double percorrenza_effettiva;
-
-//    @Column(name = "partenza")
-//    private String partenza;
-//
-//    @Column(name = "capolinea")
-//    private String capolinea;
 
     public Percorrenza_tratta() {
     }
@@ -59,5 +50,15 @@ public class Percorrenza_tratta {
         return tratta.getCapolinea();
     }
 
+    public long getId() {
+        return id;
+    }
 
+    public Tratta getTratta() {
+        return tratta;
+    }
+
+    public Parco_mezzi getMezzo() {
+        return mezzo;
+    }
 }

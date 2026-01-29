@@ -6,4 +6,10 @@ public class NotPossibleException extends RuntimeException {
                 "L'operazione non è andata a buon fine."
         );
     }
+
+    public NotPossibleException(String id_mezzo) {
+        super(
+                "Il mezzo con id: " + id_mezzo + " é giá in manutenzione"
+        );
+    }
 }

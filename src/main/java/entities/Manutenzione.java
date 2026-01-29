@@ -1,12 +1,13 @@
 package entities;
 
+import enums.StatoManutenzione;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table(name="Manutenzione")
+@Table(name = "Manutenzione")
 public class Manutenzione {
     @Id
     @GeneratedValue
@@ -16,18 +17,30 @@ public class Manutenzione {
     @Column
     private LocalDate data_fine;
     @ManyToOne
-    @JoinColumn(name = "id_mezzo")
-    private Parco_mezzi id_mezzo;
+    @JoinColumn(name = "mezzo")
+    private Parco_mezzi mezzo;
 
-    public Manutenzione(){};
-public Manutenzione (LocalDate data_inizio,LocalDate data_fine,Parco_mezzi id_mezzo){
-    this.data_inizio=data_inizio;
-    this.data_fine=data_fine;
-    this.id_mezzo=id_mezzo;
-};
+    @Enumerated(EnumType.STRING)
+    private StatoManutenzione statoManutenzione;
+
+    public Manutenzione() {
+    }
+
+    ;
+
+    public Manutenzione(Parco_mezzi mezzo) {
+        this.data_inizio = LocalDate.now();
+        this.mezzo = mezzo;
+    }
+
+    ;
 
     public UUID getId() {
         return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
     }
 
     public LocalDate getData_inizio() {
@@ -38,24 +51,24 @@ public Manutenzione (LocalDate data_inizio,LocalDate data_fine,Parco_mezzi id_me
         return data_fine;
     }
 
-    public Parco_mezzi getId_mezzo() {
-        return id_mezzo;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setData_inizio(LocalDate data_inizio) {
-        this.data_inizio = data_inizio;
-    }
-
-    public void setData_fine(LocalDate data_fine) {
-        this.data_fine = data_fine;
+    public Parco_mezzi getMezzo() {
+        return mezzo;
     }
 
     public void setId_mezzo(Parco_mezzi id_mezzo) {
-        this.id_mezzo = id_mezzo;
+        this.mezzo = id_mezzo;
+    }
+
+    public void setFineManutenzione() {
+        this.data_fine = LocalDate.now();
+    }
+
+    public StatoManutenzione getStatoManutenzione() {
+        return statoManutenzione;
+    }
+
+    public void setStatoManutenzione(StatoManutenzione statoManutenzione) {
+        this.statoManutenzione = statoManutenzione;
     }
 
     @Override
@@ -64,7 +77,7 @@ public Manutenzione (LocalDate data_inizio,LocalDate data_fine,Parco_mezzi id_me
                 "id=" + id +
                 ", data_inizio=" + data_inizio +
                 ", data_fine=" + data_fine +
-                ", id_mezzo=" + id_mezzo +
+                ", mezzo=" + mezzo +
                 '}';
     }
 }

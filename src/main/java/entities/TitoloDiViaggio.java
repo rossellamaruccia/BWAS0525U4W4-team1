@@ -1,5 +1,6 @@
 package entities;
 
+import exceptions.NotPossibleException;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -27,7 +28,13 @@ public abstract class TitoloDiViaggio {
 
     public TitoloDiViaggio(Emittente emittente) {
         this.dataEmissione = LocalDate.now();
-        this.emittente = emittente;
+        if (emittente instanceof DistributoreAutomatico && ((DistributoreAutomatico) emittente).isIn_servizio()) {
+            this.emittente = emittente;
+        } else if (emittente instanceof DistributoreAutomatico && !((DistributoreAutomatico) emittente).isIn_servizio()) {
+            throw new NotPossibleException();
+        } else {
+            this.emittente = emittente;
+        }
     }
 
     public UUID getId() {

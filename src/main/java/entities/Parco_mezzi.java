@@ -1,9 +1,10 @@
 package entities;
 
-import enums.Stato;
+import enums.StatoMezzo;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -18,7 +19,7 @@ public abstract class Parco_mezzi {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Stato stato;
+    private StatoMezzo stato;
     @Column
     private LocalDate data_attivazione;
 
@@ -26,14 +27,15 @@ public abstract class Parco_mezzi {
     @JoinColumn(name = "tratta_associata")
     private Tratta tratta;
 
+    @OneToMany(mappedBy = "mezzo")
+    private List<Manutenzione> manutenzioni;
 
     public Parco_mezzi() {
     }
 
 
-    public Parco_mezzi(Stato stato, int year, int month, int day, Tratta tratta) {
-        this.stato = stato;
-        this.data_attivazione = LocalDate.of(year, month, day);
+    public Parco_mezzi(Tratta tratta) {
+        this.data_attivazione = LocalDate.now();
         this.tratta = tratta;
     }
 
@@ -42,25 +44,24 @@ public abstract class Parco_mezzi {
         return id;
     }
 
-
     public void setId(UUID id) {
         this.id = id;
     }
 
-    public Stato getStato() {
+    public List<Manutenzione> getManutenzioni() {
+        return manutenzioni;
+    }
+
+    public StatoMezzo getStatoMezzo() {
         return stato;
     }
 
-    public void setStato(Stato stato) {
+    public void setStatoMezzo(StatoMezzo stato) {
         this.stato = stato;
     }
 
     public LocalDate getData_attivazione() {
         return data_attivazione;
-    }
-
-    public void setData_attivazione(LocalDate data_attivazione) {
-        this.data_attivazione = data_attivazione;
     }
 
     public Tratta getTratta() {

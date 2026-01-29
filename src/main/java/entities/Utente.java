@@ -1,5 +1,6 @@
 package entities;
 
+import exceptions.NotPossibleException;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -33,6 +34,9 @@ public class Utente {
     public Utente(String nome, String cognome, int year, int month, int day) {
         this.nome = nome;
         this.cognome = cognome;
+        if (LocalDate.of(year, month, day).isAfter(LocalDate.now())) {
+            throw new NotPossibleException();
+        }
         this.dataDiNascita = LocalDate.of(year, month, day);
     }
 

@@ -2,6 +2,7 @@ package entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -14,6 +15,9 @@ public abstract class Emittente {
     @GeneratedValue
     private UUID emittenteId;
     // questo valore va collegato al biglietto
+
+    @OneToMany(mappedBy = "id")
+    private List<TitoloDiViaggio> titoliDiViaggio;
 
     public Emittente() {
     }
@@ -28,4 +32,14 @@ public abstract class Emittente {
                 "id=" + emittenteId
                 ;
     }
+
+    public List<TitoloDiViaggio> getTitoliDiViaggio() {
+        return titoliDiViaggio;
+    }
+
+    public UUID getEmittenteId() {
+        return emittenteId;
+    }
+
+
 }
