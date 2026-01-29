@@ -1,6 +1,5 @@
 package entities;
 
-import enums.Stato;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -14,8 +13,8 @@ public class Bus extends Parco_mezzi {
     public Bus() {
     }
 
-    public Bus(Stato stato, int year, int month, int day, Tratta tratta) {
-        super(stato, year, month, day, tratta);
+    public Bus(Tratta tratta) {
+        super(tratta);
         this.capienza = 30;
     }
 

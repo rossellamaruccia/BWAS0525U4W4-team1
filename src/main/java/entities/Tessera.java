@@ -25,8 +25,8 @@ public class Tessera {
     public Tessera() {
     }
 
-    public Tessera(int year, int month, int day, Utente possessore) {
-        this.dataEmissione = LocalDate.of(year, month, day);
+    public Tessera(Utente possessore) {
+        this.dataEmissione = LocalDate.now();
         this.dataScadenza = dataEmissione.plusYears(1);
         this.possessore = possessore;
     }

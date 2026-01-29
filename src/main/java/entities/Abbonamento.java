@@ -42,7 +42,6 @@ public class Abbonamento extends TitoloDiViaggio {
         return tessera;
     }
 
-
     public LocalDate getDataScadenza() {
         return dataScadenza;
     }

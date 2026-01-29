@@ -17,7 +17,7 @@
         <class>entities.Tratta</class>
         <class>entities.Abbonamento</class>
         <class>entities.Percorrenza_tratta</class>
-
+        <class>entities.Manutenzione</class>
         <properties>
 
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/trasporti"/>

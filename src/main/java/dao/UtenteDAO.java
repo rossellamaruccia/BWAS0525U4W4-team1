@@ -3,6 +3,7 @@ package dao;
 import entities.Biglietto;
 import entities.Parco_mezzi;
 import entities.Utente;
+import enums.StatoMezzo;
 import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -34,11 +35,12 @@ public class UtenteDAO {
     }
 
     public void vidimaBiglietto(String bigliettoId, String mezzoId) {
-        
         Parco_mezzi mezzo = em.find(Parco_mezzi.class, UUID.fromString(mezzoId));
         if (mezzo == null) {
             System.out.println("Mezzo non trovato");
             return;
+        } else if (mezzo.getStatoMezzo() != StatoMezzo.IN_FUNZIONE) {
+            throw new NotFoundException(mezzo.getId().toString());
         }
 
         Biglietto biglietto = em.find(Biglietto.class, UUID.fromString(bigliettoId));
