@@ -2,10 +2,7 @@ package org.example;
 
 
 import dao.*;
-import entities.Manutenzione;
-import entities.Parco_mezzi;
-import entities.Tram;
-import entities.Tratta;
+import entities.*;
 import exceptions.NotPossibleException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -38,8 +35,26 @@ public class Application {
 
             //md.fineManutenzione(tram1FromDB);
 
-           
-            System.out.println(md.manutenzioniPerMezzo(tram1FromDB));
+            RivenditoreUfficiale riv1 = new RivenditoreUfficiale();
+            //ed.save(em1);
+            Emittente riv1FromDB = ed.trovaPerId("bd84c61b-f115-4d1d-9e09-052d98e1a23d");
+
+
+            Biglietto b1 = new Biglietto(riv1FromDB);
+            Biglietto b2 = new Biglietto(riv1FromDB);
+            Biglietto b3 = new Biglietto(riv1FromDB);
+            Biglietto b4 = new Biglietto(riv1FromDB);
+//            tdvd.salvaTitoloDiViaggio(b1);
+//            tdvd.salvaTitoloDiViaggio(b2);
+//            tdvd.salvaTitoloDiViaggio(b3);
+//            tdvd.salvaTitoloDiViaggio(b4);
+
+            //ud.vidimaBiglietto("17a02a9d-8f4a-4f26-9145-f047f2a20898", "6ddd2281-26d6-41c9-8924-6ca061703cf6");
+            //ud.vidimaBiglietto("2c1df233-3656-4b9f-86cf-245237999891", "6ddd2281-26d6-41c9-8924-6ca061703cf6");
+
+            //System.out.println(tdvd.bigliettiVidimatiPerMezzo(tram1FromDB));
+
+            //System.out.println(md.manutenzioniPerMezzo(tram1FromDB));
 
         } catch (NotPossibleException ex) {
             System.out.println(ex.getMessage());

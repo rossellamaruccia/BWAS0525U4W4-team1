@@ -125,6 +125,12 @@ public class TitoloDiViaggioDAO {
 
         }
     }
+
+    public int bigliettiVidimatiPerMezzo(Parco_mezzi mezzo) {
+        TypedQuery<Biglietto> query = em.createQuery(" SELECT b FROM Biglietto b where mezzo=:mezzo", Biglietto.class);
+        query.setParameter("mezzo", mezzo);
+        return query.getResultList().size();
+    }
 }
 
 
