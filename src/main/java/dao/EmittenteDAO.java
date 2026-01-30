@@ -2,7 +2,9 @@ package dao;
 
 import entities.DistributoreAutomatico;
 import entities.Emittente;
+import entities.RivenditoreUfficiale;
 import exceptions.NotFoundException;
+import exceptions.NotPossibleException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
@@ -43,5 +45,28 @@ public class EmittenteDAO {
         found.setIn_servizio(false);
         transaction.commit();
         //System.out.println("Il sistema è stato aggiornato.");
+    }
+
+    public void rimettiInFunzioneDistributore(String idDistributore) {
+        Emittente found = this.trovaPerId(idDistributore);
+
+        if (found instanceof RivenditoreUfficiale) {
+            throw new NotPossibleException();
+        } else if (found == null) throw new NotFoundException(idDistributore);
+        else if (found instanceof DistributoreAutomatico) {
+            if (((DistributoreAutomatico) found).isIn_servizio()) {
+                throw new NotPossibleException();
+            } else if (!((DistributoreAutomatico) found).isIn_servizio()) {
+                EntityTransaction transaction = em.getTransaction();
+
+                transaction.begin();
+
+                ((DistributoreAutomatico) found).setIn_servizio(true);
+
+                transaction.commit();
+            }
+
+        }
+
     }
 }
