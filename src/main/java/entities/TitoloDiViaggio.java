@@ -11,14 +11,12 @@ import java.util.UUID;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class TitoloDiViaggio {
 
+    // Data/ora di emissione del titolo
+    @Column(name = "data_emissione", nullable = false)
+    protected LocalDate dataEmissione;
     @Id
     @GeneratedValue
     private UUID id;
-
-    // Data/ora di emissione del titolo
-    @Column(name = "data_emissione", nullable = false)
-    private LocalDate dataEmissione;
-
     @ManyToOne
     @JoinColumn(name = "emittente_id", nullable = false)
     private Emittente emittente;

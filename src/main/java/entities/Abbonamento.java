@@ -38,12 +38,28 @@ public class Abbonamento extends TitoloDiViaggio {
         return durata;
     }
 
+    public void setDurata(FrequenzaAbbonamento durata) {
+        this.durata = durata;
+    }
+
     public Tessera getTessera() {
         return tessera;
     }
 
     public LocalDate getDataScadenza() {
         return dataScadenza;
+    }
+
+    public void setDataEmissione() {
+        this.dataEmissione = LocalDate.now();
+    }
+
+    public void setDataScadenza() {
+        if (this.durata == FrequenzaAbbonamento.SETTIMANALE) {
+            this.dataScadenza = LocalDate.now().plusWeeks(1);
+        } else {
+            this.dataScadenza = LocalDate.now().plusMonths(1);
+        }
     }
 
     @Override

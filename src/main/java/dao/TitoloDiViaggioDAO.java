@@ -4,6 +4,7 @@ import entities.Abbonamento;
 import entities.Biglietto;
 import entities.Parco_mezzi;
 import entities.TitoloDiViaggio;
+import enums.FrequenzaAbbonamento;
 import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -94,12 +95,38 @@ public class TitoloDiViaggioDAO {
     }
 
     // Verifica se l'abbonamento è scaduto
-    public boolean verificaValidita(Abbonamento abb) {
-        if (abb.getDataScadenza().isAfter(LocalDate.now())) {
+    public boolean verificaValiditaAbbonamento(Abbonamento abb) {
+        if (abb.getDataScadenza().isBefore(LocalDate.now())) {
+            System.out.println("Il tuo abbonamento é scaduto");
             return false;
         } else {
+            System.out.println("Il tuo abbonamento é valido fino al " + abb.getDataScadenza());
             return true;
         }
     }
+
+    public void rinnovaAbbonamento(Abbonamento abb, FrequenzaAbbonamento durata) {
+        this.verificaValiditaAbbonamento(abb);
+
+        if (!this.verificaValiditaAbbonamento(abb)) {
+            EntityTransaction transaction = em.getTransaction();
+
+            transaction.begin();
+
+            abb.setDataEmissione();
+
+            abb.setDurata(durata);
+
+            abb.setDataScadenza();
+
+            transaction.commit();
+
+            System.out.println("Il tuo abbonamento é stato rinnovato fino al " + abb.getDataScadenza());
+
+        }
+    }
 }
+
+
+
 
