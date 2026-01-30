@@ -121,7 +121,7 @@ public class TitoloDiViaggioDAO {
 
             transaction.commit();
 
-            //System.out.println("Il tuo abbonamento é stato rinnovato fino al " + abb.getDataScadenza());
+            System.out.println("Il tuo abbonamento é stato rinnovato fino al " + abb.getDataScadenza());
 
         }
     }

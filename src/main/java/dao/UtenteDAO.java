@@ -69,7 +69,7 @@ public class UtenteDAO {
             //cancelliamo il biglietto?
 
             transaction.commit();
-            System.out.println("Biglietto vidimato sul " + mezzo.getId() + " sulla tratta " + mezzo.getTratta().getPartenza() + "-" + mezzo.getTratta().getCapolinea());
+            System.out.println("Biglietto vidimato sul mezzo con id: " + mezzo.getId() + " sulla tratta " + mezzo.getTratta().getPartenza() + "-" + mezzo.getTratta().getCapolinea());
         }
     }
 }

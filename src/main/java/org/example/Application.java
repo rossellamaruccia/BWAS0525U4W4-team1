@@ -43,11 +43,10 @@ public class Application {
         boolean running = true;
         while (running) {
             System.out.println("--- Benvenut* ---");
-            System.out.println("Seleziona 1 se sei un utente, 2 se sei un amministratore");
-            int scelta;
             try {
+                System.out.println("Seleziona 1 se sei un utente, 2 se sei un amministratore");
+                int scelta;
                 scelta = Integer.parseInt(scanner.nextLine());
-
                 switch (scelta) {
                     case 1:
                         //utente
@@ -61,7 +60,6 @@ public class Application {
                                 System.out.println("seleziona 3 per controllare la scadenza della tua tessera");
                                 System.out.println("seleziona 4 per comprare o rinnovare un abbonamento");
                                 System.out.println("seleziona 5 per comprare un biglietto");
-                                System.out.println("seleziona 6 per scegliere una tratta");
                                 System.out.println("seleziona 0 per uscire");
                                 scelta = Integer.parseInt(scanner.nextLine());
                                 switch (scelta) {
@@ -92,9 +90,7 @@ public class Application {
                                         Tessera tessera3 = td.trovaTesseraDalNumero(scanner.nextLine());
                                         if (tessera3.getAbbonamento() != null) {
                                             Abbonamento a1 = tessera3.getAbbonamento();
-                                            a1.setDataScadenza();
-                                            System.out.println("Scadenza rimandata di 7 gg");
-                                            // non è ancora persistito nel DB
+                                            tdvd.rinnovaAbbonamento(a1, a1.getDurata());
                                         } else {
                                             Emittente d1 = ed.trovaPerId("d0fb19a4-41f4-4405-be6e-2e6ad3c081f7");
                                             System.out.println("seleziona 1 per abbonamento settimanale, 2 per mensile");
@@ -111,7 +107,6 @@ public class Application {
                                                     System.out.println("Abbonamento con id: " + a3.getId() + "creato. Scadrà il " + a3.getDataScadenza());
                                                     break;
                                                 default:
-                                                    System.out.println("Hai inserito un valore non valido.");
                                                     break;
                                             }
                                         }
@@ -165,7 +160,7 @@ public class Application {
                                         int giorno = Integer.parseInt(scanner.nextLine());
                                         Utente u2 = new Utente(nome, cognome, anno, mese, giorno);
                                         ud.save(u2);
-                                        
+
                                         break;
                                     case 2:
                                         //comprare un biglietto
@@ -211,11 +206,12 @@ public class Application {
 //                        System.out.println("Grazie e arrivederci!");
 //                        break;
                     default:
+                        System.out.println("Hai inserito un valore non valido. Riprova.");
                         break;
 
                 }
             } catch (InputMismatchException | IllegalArgumentException e) {
-                System.out.println("Errore");
+                System.out.println("L'operazione non è andata a buon fine. Hai inserito un dato non valido. Riprova!");
             }
         }
 
