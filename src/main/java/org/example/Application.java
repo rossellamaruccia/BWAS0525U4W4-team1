@@ -30,15 +30,7 @@ public class Application {
         ManutenzioneDAO md = new ManutenzioneDAO(em);
         PercorrenzaTrattaDAO ptd = new PercorrenzaTrattaDAO(em);
 
-//        Percorrenza_tratta pt1 = new Percorrenza_tratta(trd.trovaPerID("0df71348-30b9-4579-a54a-c26fc748a10d"), pmd.findById("2dce0f07-d0bc-4569-8edb-4c370d673260"), 24);
-//        Percorrenza_tratta pt2 = new Percorrenza_tratta(trd.trovaPerID("0df71348-30b9-4579-a54a-c26fc748a10d"), pmd.findById("2dce0f07-d0bc-4569-8edb-4c370d673260"), 34);
-//        Percorrenza_tratta pt3 = new Percorrenza_tratta(trd.trovaPerID("0df71348-30b9-4579-a54a-c26fc748a10d"), pmd.findById("2dce0f07-d0bc-4569-8edb-4c370d673260"), 32);
-//        Percorrenza_tratta pt4 = new Percorrenza_tratta(trd.trovaPerID("0df71348-30b9-4579-a54a-c26fc748a10d"), pmd.findById("2dce0f07-d0bc-4569-8edb-4c370d673260"), 53);
-//
-//        ptd.save(pt1);
-//        ptd.save(pt2);
-//        ptd.save(pt3);
-//        ptd.save(pt4);
+
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
@@ -139,6 +131,7 @@ public class Application {
                                                 System.out.println("Grazie e arrivederci!");
                                                 break;
                                         }
+                                        break;
                                     default:
                                         break;
                                 }
@@ -190,13 +183,16 @@ public class Application {
                                                 System.out.println("Grazie e arrivederci!");
                                                 break;
                                         }
+                                        break;
                                     case 0:
                                         System.out.println("Grazie e arrivederci!");
+                                        break;
                                 }
                                 break;
                             default:
                                 break;
                         }
+                        break;
                     case 2:
                         //amministratore
                         System.out.println("--- Menu Amministratore ---");
