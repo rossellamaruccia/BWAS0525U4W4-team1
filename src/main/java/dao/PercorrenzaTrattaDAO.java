@@ -34,6 +34,6 @@ public class PercorrenzaTrattaDAO {
         for (Percorrenza_tratta r : results) {
             somma += r.getPercorrenza_effettiva();
         }
-        return somma / results.size();
+        return Math.ceil(somma / results.size());
     }
 }

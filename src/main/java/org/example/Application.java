@@ -4,10 +4,13 @@ package org.example;
 import dao.*;
 import entities.*;
 import enums.FrequenzaAbbonamento;
+import exceptions.NotFoundException;
+import exceptions.NotPossibleException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -27,6 +30,15 @@ public class Application {
         ManutenzioneDAO md = new ManutenzioneDAO(em);
         PercorrenzaTrattaDAO ptd = new PercorrenzaTrattaDAO(em);
 
+//        Percorrenza_tratta pt1 = new Percorrenza_tratta(trd.trovaPerID("0df71348-30b9-4579-a54a-c26fc748a10d"), pmd.findById("2dce0f07-d0bc-4569-8edb-4c370d673260"), 24);
+//        Percorrenza_tratta pt2 = new Percorrenza_tratta(trd.trovaPerID("0df71348-30b9-4579-a54a-c26fc748a10d"), pmd.findById("2dce0f07-d0bc-4569-8edb-4c370d673260"), 34);
+//        Percorrenza_tratta pt3 = new Percorrenza_tratta(trd.trovaPerID("0df71348-30b9-4579-a54a-c26fc748a10d"), pmd.findById("2dce0f07-d0bc-4569-8edb-4c370d673260"), 32);
+//        Percorrenza_tratta pt4 = new Percorrenza_tratta(trd.trovaPerID("0df71348-30b9-4579-a54a-c26fc748a10d"), pmd.findById("2dce0f07-d0bc-4569-8edb-4c370d673260"), 53);
+//
+//        ptd.save(pt1);
+//        ptd.save(pt2);
+//        ptd.save(pt3);
+//        ptd.save(pt4);
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
         while (running) {
@@ -192,6 +204,9 @@ public class Application {
                         System.out.println("seleziona 2 per verificare abbonamento per numero tessera");
                         System.out.println("seleziona 3 per gestione mezzo: cambia stato (servizio/manutenzione)");
                         System.out.println("seleziona 4 per calcolare tempo medio effettivo percorrenza tratta");
+                        System.out.println("seleziona 5 per avere il totale dei biglietti vidimati per mezzo");
+                        System.out.println("seleziona 6 per avere il totale dei biglietti vidimati in una specifica data");
+                        System.out.println("seleziona 7 per avere il totale dei biglietti creati in una specifica data da un emittente");
                         System.out.println("seleziona 0 per uscire");
                         scelta = Integer.parseInt(scanner.nextLine());
                         switch (scelta) {
@@ -237,6 +252,7 @@ public class Application {
                                 String idMezzo3 = scanner.nextLine();
                                 Parco_mezzi mezzo3 = pmd.findById(idMezzo3);
                                 System.out.println("Stato attuale: " + mezzo3.getStatoMezzo());
+
                                 System.out.println("seleziona 1 per mettere IN MANUTENZIONE, 2 per rimettere IN SERVIZIO");
                                 scelta = Integer.parseInt(scanner.nextLine());
                                 switch (scelta) {
@@ -265,6 +281,30 @@ public class Application {
                                 double media = ptd.mediaPercorrenzeEffettive(tratta4, mezzo4);
                                 System.out.println("Tempo medio effettivo di percorrenza: " + media + " minuti");
                                 break;
+                            case 5:
+                                //calcola totale biglietti vidimati per mezzo
+                                System.out.println("Inserisci l'id del mezzo:");
+                                String idMezzo = scanner.nextLine();
+                                Parco_mezzi mezzo = pmd.findById(idMezzo);
+                                tdvd.cercaBigliettiVidimatiPerMezzo(mezzo);
+                                break;
+                            case 6:
+                                System.out.println("inserisci la data di vidimazione(yyyy-mm-dd): ");
+                                String input1 = scanner.nextLine();
+                                LocalDate dataVidimazione = LocalDate.parse(input1);
+                                System.out.println("Il totale è: " + tdvd.cercaBigliettiPerDataVidimazione(dataVidimazione).size());
+                                break;
+                            case 7:
+                                System.out.println("Inserisci l'id dell'emittente: ");
+                                String emittente_id = scanner.nextLine();
+                                System.out.println("inserisci la data di inizio ricerca(yyyy-mm-dd): ");
+                                String input3 = scanner.nextLine();
+                                LocalDate dataInizio = LocalDate.parse(input3);
+                                System.out.println("inserisci la data di fine ricerca(yyyy-mm-dd): ");
+                                String input2 = scanner.nextLine();
+                                LocalDate dataFine = LocalDate.parse(input2);
+                                System.out.println(tdvd.trovaTitoliperEmittenteEDate(emittente_id, dataInizio, dataFine).size());
+                                break;
                             case 0:
                                 System.out.println("Grazie e arrivederci!");
                                 break;
@@ -273,17 +313,17 @@ public class Application {
                                 break;
                         }
                         break;
-//                    case 0:
-//                        running = false;
-//                        System.out.println("Grazie e arrivederci!");
-//                        break;
+
                     default:
                         System.out.println("Hai inserito un valore non valido. Riprova.");
                         break;
 
                 }
-            } catch (InputMismatchException | IllegalArgumentException e) {
+            } catch (InputMismatchException | IllegalArgumentException | DateTimeException e) {
+                System.out.println(e.getMessage());
                 System.out.println("L'operazione non è andata a buon fine. Hai inserito un dato non valido. Riprova!");
+            } catch (NotFoundException | NotPossibleException e) {
+                System.out.println(e.getMessage());
             }
         }
 

@@ -9,6 +9,7 @@ import exceptions.NotFoundException;
 import exceptions.NotPossibleException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 
 import java.util.UUID;
@@ -60,21 +61,24 @@ public class ManutenzioneDAO {
     }
 
     public void fineManutenzione(Parco_mezzi mezzo) {
-        TypedQuery<Manutenzione> query = em.createQuery("SELECT m FROM Manutenzione m WHERE m.mezzo=:mezzo AND m.statoManutenzione=IN_CORSO", Manutenzione.class);
-        query.setParameter("mezzo", mezzo);
-        Manutenzione m1 = query.getSingleResult();
+        try {
+            TypedQuery<Manutenzione> query = em.createQuery("SELECT m FROM Manutenzione m WHERE m.mezzo=:mezzo AND m.statoManutenzione=IN_CORSO", Manutenzione.class);
+            query.setParameter("mezzo", mezzo);
+            Manutenzione m1 = query.getSingleResult();
+            EntityTransaction transaction = em.getTransaction();
 
-        EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
 
-        transaction.begin();
+            m1.setFineManutenzione();
 
-        m1.setFineManutenzione();
+            m1.setStatoManutenzione(StatoManutenzione.FINITA);
 
-        m1.setStatoManutenzione(StatoManutenzione.FINITA);
+            mezzo.setStatoMezzo(StatoMezzo.IN_FUNZIONE);
 
-        mezzo.setStatoMezzo(StatoMezzo.IN_FUNZIONE);
-
-        transaction.commit();
+            transaction.commit();
+        } catch (NoResultException ex) {
+            throw new NotPossibleException();
+        }
 
         //System.out.println("Manutenzione al mezzo: " + mezzo.getId() + " finita con successo");
     }

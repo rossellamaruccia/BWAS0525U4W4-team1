@@ -67,17 +67,17 @@ public class TitoloDiViaggioDAO {
         return resultList;
     }
 
-    public List<Biglietto> cercaBigliettiVidimatiPerMezzo(Parco_mezzi mezzo) {
+    public void cercaBigliettiVidimatiPerMezzo(Parco_mezzi mezzo) {
         TypedQuery<Biglietto> query = em.createQuery(
                 "SELECT b FROM Biglietto b WHERE b.mezzo = :mezzo AND b.data_vidimazione IS NOT NULL",
                 Biglietto.class);
         query.setParameter("mezzo", mezzo);
-        return query.getResultList();
+        System.out.println("Il totale dei biglietti vidimati sul mezzo è: " + query.getResultList().size());
     }
 
-    public List<Biglietto> cercaBigliettiPerDataVidimazione(int yyyy, int mm, int dd) {
-        LocalDate date = LocalDate.of(yyyy, mm, dd);
-        TypedQuery<Biglietto> query = em.createQuery("SELECT b FROM Biglietto b WHERE b.dataVidimazione = :date", Biglietto.class);
+    public List<Biglietto> cercaBigliettiPerDataVidimazione(LocalDate date) {
+
+        TypedQuery<Biglietto> query = em.createQuery("SELECT b FROM Biglietto b WHERE b.data_vidimazione = :date", Biglietto.class);
         query.setParameter("date", date);
         return query.getResultList();
     }
