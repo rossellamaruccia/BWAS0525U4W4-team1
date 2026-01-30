@@ -1,9 +1,6 @@
 package dao;
 
-import entities.Abbonamento;
-import entities.Biglietto;
-import entities.Parco_mezzi;
-import entities.TitoloDiViaggio;
+import entities.*;
 import enums.FrequenzaAbbonamento;
 import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
@@ -59,9 +56,10 @@ public class TitoloDiViaggioDAO {
 
     public List<TitoloDiViaggio> trovaTitoliperEmittenteEDate(String emittente_id, LocalDate startDate, LocalDate endDate) {
         EntityTransaction transaction = em.getTransaction();
+        Emittente emittente = em.find(Emittente.class, UUID.fromString(emittente_id));
         transaction.begin();
-        TypedQuery<TitoloDiViaggio> query = em.createQuery("SELECT t FROM TitoloDiViaggio t WHERE t.emittente_id = :emittente_id AND t.data_emissione > :startDate AND t.data_emissione < :endDate", TitoloDiViaggio.class);
-        query.setParameter("emittente_id", UUID.fromString(emittente_id));
+        TypedQuery<TitoloDiViaggio> query = em.createQuery("SELECT t FROM TitoloDiViaggio t WHERE t.emittente = :emittente AND t.dataEmissione >= :startDate AND t.dataEmissione <= :endDate", TitoloDiViaggio.class);
+        query.setParameter("emittente", emittente);
         query.setParameter("startDate", startDate);
         query.setParameter("endDate", endDate);
         List<TitoloDiViaggio> resultList = query.getResultList();
