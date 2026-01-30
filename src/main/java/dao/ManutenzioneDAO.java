@@ -38,7 +38,7 @@ public class ManutenzioneDAO {
             mezzo.setStatoMezzo(StatoMezzo.IN_MANUTENZIONE);
 
             transaction.commit();
-            System.out.println("Manutenzione con id: " + manutenzione.getId() + " salvata correttamente!");
+            //System.out.println("Manutenzione con id: " + manutenzione.getId() + " salvata correttamente!");
         }
     }
 
@@ -55,11 +55,11 @@ public class ManutenzioneDAO {
         transaction.begin();
         em.remove(found);
         transaction.commit();
-        System.out.println("Manutenzione al mezzo con id: " + found.getMezzo() + " eliminata con successo!");
+        //System.out.println("Manutenzione al mezzo con id: " + found.getMezzo() + " eliminata con successo!");
     }
 
     public void fineManutenzione(Parco_mezzi mezzo) {
-        TypedQuery<Manutenzione> query = em.createQuery("SELECT m FROM Manutenzione m WHERE m.mezzo=:mezzo", Manutenzione.class);
+        TypedQuery<Manutenzione> query = em.createQuery("SELECT m FROM Manutenzione m WHERE m.mezzo=:mezzo AND m.statoManutenzione=IN_CORSO", Manutenzione.class);
         query.setParameter("mezzo", mezzo);
         Manutenzione m1 = query.getSingleResult();
 
@@ -75,7 +75,13 @@ public class ManutenzioneDAO {
 
         transaction.commit();
 
-        System.out.println("Manutenzione al mezzo: " + mezzo.getId() + " finita con successo");
+        //System.out.println("Manutenzione al mezzo: " + mezzo.getId() + " finita con successo");
+    }
+
+    public int manutenzioniPerMezzo(Parco_mezzi mezzo) {
+        TypedQuery<Manutenzione> query = em.createQuery("SELECT m from Manutenzione m WHERE m.mezzo=:mezzo", Manutenzione.class);
+        query.setParameter("mezzo", mezzo);
+        return query.getResultList().size();
     }
 
     //impossibilitare piú manutenzioni

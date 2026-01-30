@@ -5,6 +5,7 @@ import entities.Parco_mezzi;
 import entities.Utente;
 import enums.StatoMezzo;
 import exceptions.NotFoundException;
+import exceptions.NotPossibleException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
@@ -55,9 +56,9 @@ public class UtenteDAO {
         }
 
         if (biglietto == null) {
-            System.out.println("Biglietto non trovato");
+            throw new NotFoundException(bigliettoId);
         } else if (biglietto.getDataVidimazione() != null) {
-            System.out.println("Biglietto già vidimato");
+            throw new NotPossibleException("Biglietto giá vidimato");
         } else {
 
             EntityTransaction transaction = em.getTransaction();

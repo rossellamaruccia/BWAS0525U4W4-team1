@@ -1,10 +1,11 @@
 package dao;
 
 import entities.Tessera;
+import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import exceptions.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 
@@ -26,7 +27,7 @@ public class TesseraDAO {
 
         transaction.commit();
 
-        System.out.println("La tessera " + tessera.getIdTessera() + " é stata salvata con successo");
+        //System.out.println("La tessera " + tessera.getIdTessera() + " é stata salvata con successo");
     }
 
     public Tessera trovaTesseraDalNumero(String numTessera) {
@@ -50,7 +51,33 @@ public class TesseraDAO {
 
         transaction.commit();
 
-        System.out.println("Tessera con numero " + numTessera + " eliminata con successo");
+        //System.out.println("Tessera con numero " + numTessera + " eliminata con successo");
     }
 
+    public boolean verificaValiditaTessera(Tessera tessera) {
+        if (tessera.getDataScadenza().isBefore(LocalDate.now())) {
+            //System.out.println("La tua tessera é scaduta");
+            return false;
+        } else {
+            //System.out.println("La tua tessera é valida fino al " + tessera.getDataScadenza());
+            return true;
+        }
+    }
+
+    public void rinnovaTessera(Tessera tessera) {
+        this.verificaValiditaTessera(tessera);
+
+        if (!this.verificaValiditaTessera(tessera)) {
+            EntityTransaction transaction = em.getTransaction();
+
+            transaction.begin();
+
+            tessera.setDataScadenza();
+
+            transaction.commit();
+
+            //System.out.println("La tua tessera é stato rinnovato fino al " + tessera.getDataScadenza());
+
+        }
+    }
 }
