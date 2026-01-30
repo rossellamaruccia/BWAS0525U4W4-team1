@@ -21,10 +21,11 @@ public class Application {
         UtenteDAO ud = new UtenteDAO(em);
         TesseraDAO td = new TesseraDAO(em);
         TitoloDiViaggioDAO tdvd = new TitoloDiViaggioDAO(em);
+        TrattaDAO trd = new TrattaDAO(em);
         Parco_mezziDAO pmd = new Parco_mezziDAO(em);
         EmittenteDAO ed = new EmittenteDAO(em);
-
-        System.out.println(tdvd.trovaTitoliperEmittenteEDate("d0fb19a4-41f4-4405-be6e-2e6ad3c081f7", LocalDate.of(2026, 1, 29), LocalDate.of(2026, 1, 30)).size());
+        ManutenzioneDAO md = new ManutenzioneDAO(em);
+        PercorrenzaTrattaDAO ptd = new PercorrenzaTrattaDAO(em);
 
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
@@ -185,9 +186,93 @@ public class Application {
                                 break;
                         }
                     case 2:
-                        ;
                         //amministratore
-
+                        System.out.println("--- Menu Amministratore ---");
+                        System.out.println("seleziona 1 per mettere distributore fuori servizio / in servizio");
+                        System.out.println("seleziona 2 per verificare abbonamento per numero tessera");
+                        System.out.println("seleziona 3 per gestione mezzo: cambia stato (servizio/manutenzione)");
+                        System.out.println("seleziona 4 per calcolare tempo medio effettivo percorrenza tratta");
+                        System.out.println("seleziona 0 per uscire");
+                        scelta = Integer.parseInt(scanner.nextLine());
+                        switch (scelta) {
+                            case 1:
+                                //distributore fuori servizio / in servizio
+                                System.out.println("Inserisci l'id del distributore:");
+                                String idDistributore = scanner.nextLine();
+                                System.out.println("seleziona 1 per metterlo IN SERVIZIO, 2 per metterlo FUORI SERVIZIO");
+                                scelta = Integer.parseInt(scanner.nextLine());
+                                switch (scelta) {
+                                    case 1:
+                                        ed.rimettiInFunzioneDistributore(idDistributore);
+                                        System.out.println("Distributore messo in servizio.");
+                                        break;
+                                    case 2:
+                                        ed.setFuoriServizio(idDistributore);
+                                        System.out.println("Distributore messo fuori servizio.");
+                                        break;
+                                    default:
+                                        System.out.println("Scelta non valida.");
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                //verifica abbonamento per numero tessera
+                                System.out.println("Inserisci il numero tessera:");
+                                String numTessera = scanner.nextLine();
+                                try {
+                                    Abbonamento abb = tdvd.findByTessera(numTessera);
+                                    boolean valido = tdvd.verificaValiditaAbbonamento(abb);
+                                    if (valido) {
+                                        System.out.println("Abbonamento VALIDO. Scadenza: " + abb.getDataScadenza());
+                                    } else {
+                                        System.out.println("Abbonamento NON VALIDO. Scaduto il: " + abb.getDataScadenza());
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println("Nessun abbonamento trovato per questa tessera.");
+                                }
+                                break;
+                            case 3:
+                                //gestione mezzo: cambia stato (servizio/manutenzione)
+                                System.out.println("Inserisci l'id del mezzo:");
+                                String idMezzo3 = scanner.nextLine();
+                                Parco_mezzi mezzo3 = pmd.findById(idMezzo3);
+                                System.out.println("Stato attuale: " + mezzo3.getStatoMezzo());
+                                System.out.println("seleziona 1 per mettere IN MANUTENZIONE, 2 per rimettere IN SERVIZIO");
+                                scelta = Integer.parseInt(scanner.nextLine());
+                                switch (scelta) {
+                                    case 1:
+                                        Manutenzione man1 = new Manutenzione(mezzo3);
+                                        md.save(man1);
+                                        System.out.println("Mezzo messo in manutenzione. Id manutenzione: " + man1.getId());
+                                        break;
+                                    case 2:
+                                        md.fineManutenzione(mezzo3);
+                                        System.out.println("Manutenzione terminata. Mezzo rimesso in servizio.");
+                                        break;
+                                    default:
+                                        System.out.println("Scelta non valida.");
+                                        break;
+                                }
+                                break;
+                            case 4:
+                                //calcola tempo medio effettivo percorrenza tratta
+                                System.out.println("Inserisci l'id della tratta:");
+                                String idTratta4 = scanner.nextLine();
+                                Tratta tratta4 = trd.trovaPerID(idTratta4);
+                                System.out.println("Inserisci l'id del mezzo:");
+                                String idMezzo4 = scanner.nextLine();
+                                Parco_mezzi mezzo4 = pmd.findById(idMezzo4);
+                                double media = ptd.mediaPercorrenzeEffettive(tratta4, mezzo4);
+                                System.out.println("Tempo medio effettivo di percorrenza: " + media + " minuti");
+                                break;
+                            case 0:
+                                System.out.println("Grazie e arrivederci!");
+                                break;
+                            default:
+                                System.out.println("Scelta non valida.");
+                                break;
+                        }
+                        break;
 //                    case 0:
 //                        running = false;
 //                        System.out.println("Grazie e arrivederci!");

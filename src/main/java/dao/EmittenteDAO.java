@@ -7,7 +7,6 @@ import exceptions.NotFoundException;
 import exceptions.NotPossibleException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.TypedQuery;
 
 import java.util.UUID;
 
@@ -36,15 +35,19 @@ public class EmittenteDAO {
 
     //fuori_servizio
     public void setFuoriServizio(String id) {
-        TypedQuery<DistributoreAutomatico> query = em.createQuery("SELECT d From DistributoreAutomatico d WHERE d.id = :id", DistributoreAutomatico.class);
-        query.setParameter("id", id);
-        DistributoreAutomatico found = query.getSingleResult();
-        if (found == null) throw new NotFoundException(id);
-        EntityTransaction transaction = em.getTransaction();
-        transaction.begin();
-        found.setIn_servizio(false);
-        transaction.commit();
-        //System.out.println("Il sistema è stato aggiornato.");
+        Emittente found = this.trovaPerId(id);
+
+        if (found instanceof RivenditoreUfficiale) {
+            throw new NotPossibleException();
+        } else if (found instanceof DistributoreAutomatico) {
+            if (!((DistributoreAutomatico) found).isIn_servizio()) {
+                throw new NotPossibleException();
+            }
+            EntityTransaction transaction = em.getTransaction();
+            transaction.begin();
+            ((DistributoreAutomatico) found).setIn_servizio(false);
+            transaction.commit();
+        }
     }
 
     public void rimettiInFunzioneDistributore(String idDistributore) {
