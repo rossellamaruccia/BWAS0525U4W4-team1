@@ -59,7 +59,7 @@ public class ManutenzioneDAO {
     }
 
     public void fineManutenzione(Parco_mezzi mezzo) {
-        TypedQuery<Manutenzione> query = em.createQuery("SELECT m FROM Manutenzione m WHERE m.mezzo=:mezzo", Manutenzione.class);
+        TypedQuery<Manutenzione> query = em.createQuery("SELECT m FROM Manutenzione m WHERE m.mezzo=:mezzo AND m.statoManutenzione=IN_CORSO", Manutenzione.class);
         query.setParameter("mezzo", mezzo);
         Manutenzione m1 = query.getSingleResult();
 
@@ -76,6 +76,12 @@ public class ManutenzioneDAO {
         transaction.commit();
 
         System.out.println("Manutenzione al mezzo: " + mezzo.getId() + " finita con successo");
+    }
+
+    public int manutenzioniPerMezzo(Parco_mezzi mezzo) {
+        TypedQuery<Manutenzione> query = em.createQuery("SELECT m from Manutenzione m WHERE m.mezzo=:mezzo", Manutenzione.class);
+        query.setParameter("mezzo", mezzo);
+        return query.getResultList().size();
     }
 
     //impossibilitare piú manutenzioni
