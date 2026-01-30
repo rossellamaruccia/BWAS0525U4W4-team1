@@ -38,7 +38,7 @@ public class ManutenzioneDAO {
             mezzo.setStatoMezzo(StatoMezzo.IN_MANUTENZIONE);
 
             transaction.commit();
-            System.out.println("Manutenzione con id: " + manutenzione.getId() + " salvata correttamente!");
+            //System.out.println("Manutenzione con id: " + manutenzione.getId() + " salvata correttamente!");
         }
     }
 
@@ -55,7 +55,7 @@ public class ManutenzioneDAO {
         transaction.begin();
         em.remove(found);
         transaction.commit();
-        System.out.println("Manutenzione al mezzo con id: " + found.getMezzo() + " eliminata con successo!");
+        //System.out.println("Manutenzione al mezzo con id: " + found.getMezzo() + " eliminata con successo!");
     }
 
     public void fineManutenzione(Parco_mezzi mezzo) {
@@ -75,7 +75,7 @@ public class ManutenzioneDAO {
 
         transaction.commit();
 
-        System.out.println("Manutenzione al mezzo: " + mezzo.getId() + " finita con successo");
+        //System.out.println("Manutenzione al mezzo: " + mezzo.getId() + " finita con successo");
     }
 
     public int manutenzioniPerMezzo(Parco_mezzi mezzo) {

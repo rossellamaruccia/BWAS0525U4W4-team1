@@ -26,11 +26,11 @@ public class TitoloDiViaggioDAO {
         transaction.begin();
         em.persist(titolo);
         transaction.commit();
-        if (titolo instanceof Biglietto) {
-            System.out.println("Biglietto con id " + titolo.getId() + " salvato correttamente!");
-        } else if (titolo instanceof Abbonamento) {
-            System.out.println("Abbonamento con id " + titolo.getId() + " salvato correttamente!");
-        }
+//        if (titolo instanceof Biglietto) {
+//            System.out.println("Biglietto con id " + titolo.getId() + " salvato correttamente!");
+//        } else if (titolo instanceof Abbonamento) {
+//            System.out.println("Abbonamento con id " + titolo.getId() + " salvato correttamente!");
+//        }
     }
 
     public TitoloDiViaggio trovaTitoloDaId(String id) {
@@ -54,7 +54,7 @@ public class TitoloDiViaggioDAO {
 
         transaction.commit();
 
-        System.out.println("Titolo con id " + id + " eliminato con successo");
+        //System.out.println("Titolo con id " + id + " eliminato con successo");
     }
 
     public List<TitoloDiViaggio> trovaTitoliperEmittenteEDate(String emittente_id, LocalDate startDate, LocalDate endDate) {
@@ -97,10 +97,10 @@ public class TitoloDiViaggioDAO {
     // Verifica se l'abbonamento è scaduto
     public boolean verificaValiditaAbbonamento(Abbonamento abb) {
         if (abb.getDataScadenza().isBefore(LocalDate.now())) {
-            System.out.println("Il tuo abbonamento é scaduto");
+            //System.out.println("Il tuo abbonamento é scaduto");
             return false;
         } else {
-            System.out.println("Il tuo abbonamento é valido fino al " + abb.getDataScadenza());
+            //System.out.println("Il tuo abbonamento é valido fino al " + abb.getDataScadenza());
             return true;
         }
     }
@@ -121,7 +121,7 @@ public class TitoloDiViaggioDAO {
 
             transaction.commit();
 
-            System.out.println("Il tuo abbonamento é stato rinnovato fino al " + abb.getDataScadenza());
+            //System.out.println("Il tuo abbonamento é stato rinnovato fino al " + abb.getDataScadenza());
 
         }
     }

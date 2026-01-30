@@ -22,7 +22,7 @@ public class EmittenteDAO {
         transaction.begin();
         em.persist(emittente);
         transaction.commit();
-        System.out.println("Emittente con id: " + emittente.getId() + " salvato correttamente!");
+        //System.out.println("Emittente con id: " + emittente.getId() + " salvato correttamente!");
     }
 
     //find by ID
@@ -42,6 +42,6 @@ public class EmittenteDAO {
         transaction.begin();
         found.setIn_servizio(false);
         transaction.commit();
-        System.out.println("Il sistema è stato aggiornato.");
+        //System.out.println("Il sistema è stato aggiornato.");
     }
 }

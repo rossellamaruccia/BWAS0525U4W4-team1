@@ -30,7 +30,7 @@ public class Tessera {
         if (possessore.haTessera()) {
             throw new NotPossibleException();
         }
-        this.dataEmissione = LocalDate.of(2024, 2, 21);
+        this.dataEmissione = LocalDate.now();
         this.dataScadenza = dataEmissione.plusYears(1);
         this.possessore = possessore;
     }

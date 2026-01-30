@@ -1,8 +1,6 @@
 package dao;
 
-import entities.Bus;
 import entities.Parco_mezzi;
-import entities.Tram;
 import exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -23,11 +21,11 @@ public class Parco_mezziDAO {
         transaction.begin();
         em.persist(newParco_mezzi);
         transaction.commit();
-        if (newParco_mezzi instanceof Bus) {
-            System.out.println("Bus con id " + newParco_mezzi.getId() + " salvato correttamente!");
-        } else if (newParco_mezzi instanceof Tram) {
-            System.out.println("Tram con id " + newParco_mezzi.getId() + " salvato correttamente!");
-        }
+//        if (newParco_mezzi instanceof Bus) {
+//            System.out.println("Bus con id " + newParco_mezzi.getId() + " salvato correttamente!");
+//        } else if (newParco_mezzi instanceof Tram) {
+//            System.out.println("Tram con id " + newParco_mezzi.getId() + " salvato correttamente!");
+//        }
     }
 
     public void findByIdAndDelete(String id) {
