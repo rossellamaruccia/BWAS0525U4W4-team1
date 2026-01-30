@@ -21,10 +21,11 @@ public class ManutenzioneDAO {
     }
 
     public void save(Manutenzione manutenzione) {
-        TypedQuery<Manutenzione> query = em.createQuery("SELECT m FROM Manutenzione m WHERE m.statoManutenzione = IN_CORSO", Manutenzione.class);
+        TypedQuery<Manutenzione> query = em.createQuery("SELECT m FROM Manutenzione m WHERE m.mezzo = :mezzo AND m.statoManutenzione = IN_CORSO", Manutenzione.class);
+        query.setParameter("mezzo", manutenzione.getMezzo());
 
         if (query.getSingleResultOrNull() != null) {
-            throw new NotPossibleException(query.getSingleResultOrNull().getId().toString());
+            throw new NotPossibleException(manutenzione.getMezzo().getId().toString());
         } else {
 
             EntityTransaction transaction = em.getTransaction();
