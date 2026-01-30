@@ -23,6 +23,9 @@ public class Tessera {
     @JoinColumn(name = "id_utente", nullable = false)
     private Utente possessore;
 
+    @OneToOne(mappedBy = "tessera")
+    private Abbonamento abbonamento;
+
     public Tessera() {
     }
 
@@ -57,6 +60,10 @@ public class Tessera {
 
     public Utente getPossessore() {
         return possessore;
+    }
+
+    public Abbonamento getAbbonamento() {
+        return abbonamento;
     }
 
     @Override

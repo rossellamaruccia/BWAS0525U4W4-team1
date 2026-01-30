@@ -3,61 +3,220 @@ package org.example;
 
 import dao.*;
 import entities.*;
-import exceptions.NotPossibleException;
+import enums.FrequenzaAbbonamento;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasporti_pu");
 
     public static void main(String[] args) {
         EntityManager em = emf.createEntityManager();
-        try {
-            UtenteDAO ud = new UtenteDAO(em);
-            TesseraDAO td = new TesseraDAO(em);
-            TrattaDAO trad = new TrattaDAO(em);
-            Parco_mezziDAO pmd = new Parco_mezziDAO(em);
-            ManutenzioneDAO md = new ManutenzioneDAO(em);
-            EmittenteDAO ed = new EmittenteDAO(em);
-            TitoloDiViaggioDAO tdvd = new TitoloDiViaggioDAO(em);
 
-            Tratta tratta1 = new Tratta("Piazza piatta", "Piazza matta", 15);
-            //trad.save(tr1);
-            Tratta tratta1FromDB = trad.trovaPerID("2748ffeb-1e75-4498-b4f2-a6a2fa162561");
+        UtenteDAO ud = new UtenteDAO(em);
+        TesseraDAO td = new TesseraDAO(em);
+        TitoloDiViaggioDAO tdvd = new TitoloDiViaggioDAO(em);
+        TrattaDAO trd = new TrattaDAO(em);
+        Parco_mezziDAO pmd = new Parco_mezziDAO(em);
+        EmittenteDAO ed = new EmittenteDAO(em);
 
-            Tram tram1 = new Tram(tratta1FromDB);
-            //pmd.saveParco_mezzi(tram1);
-            Parco_mezzi tram1FromDB = pmd.findById("6ddd2281-26d6-41c9-8924-6ca061703cf6");
-
-            Manutenzione man1 = new Manutenzione(tram1FromDB);
-            //md.save(man1);
-
-            //md.fineManutenzione(tram1FromDB);
-
-            RivenditoreUfficiale riv1 = new RivenditoreUfficiale();
-            //ed.save(em1);
-            Emittente riv1FromDB = ed.trovaPerId("bd84c61b-f115-4d1d-9e09-052d98e1a23d");
+//        Utente u1 = new Utente("Rossella", "Maruccia", 1994, 2, 6);
+//        Tratta t1 = new Tratta("via Roma 1", "via Milano 100", 25);
+//        Tratta t2 = new Tratta("via Torino 2", "via Palermo 200", 32);
+//        Tratta t3 = new Tratta("via Cagliari 3", "via Bari 300", 50);
+//        trd.save(t1);
+//        trd.save(t2);
+//        trd.save(t3);
+//        Bus bus1 = new Bus(t1);
+//        Tram tram1 = new Tram(t2);
+//        Bus bus2 = new Bus(t3);
+//        pmd.saveParco_mezzi(bus1);
+//        pmd.saveParco_mezzi(tram1);
+//        pmd.saveParco_mezzi(bus2);
 
 
-            Biglietto b1 = new Biglietto(riv1FromDB);
-            Biglietto b2 = new Biglietto(riv1FromDB);
-            Biglietto b3 = new Biglietto(riv1FromDB);
-            Biglietto b4 = new Biglietto(riv1FromDB);
-//            tdvd.salvaTitoloDiViaggio(b1);
-//            tdvd.salvaTitoloDiViaggio(b2);
-//            tdvd.salvaTitoloDiViaggio(b3);
-//            tdvd.salvaTitoloDiViaggio(b4);
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+        while (running) {
+            System.out.println("--- Benvenut* ---");
+            System.out.println("Seleziona 1 se sei un utente, 2 se sei un amministratore");
+            int scelta;
+            try {
+                scelta = Integer.parseInt(scanner.nextLine());
 
-            //ud.vidimaBiglietto("17a02a9d-8f4a-4f26-9145-f047f2a20898", "6ddd2281-26d6-41c9-8924-6ca061703cf6");
-            //ud.vidimaBiglietto("2c1df233-3656-4b9f-86cf-245237999891", "6ddd2281-26d6-41c9-8924-6ca061703cf6");
+                switch (scelta) {
+                    case 1:
+                        //utente
+                        System.out.println("Seleziona 1 se sei registrato, altrimenti seleziona 2.");
+                        scelta = Integer.parseInt(scanner.nextLine());
+                        switch (scelta) {
+                            case 1:
+                                System.out.println("---menu----");
+                                System.out.println("seleziona 1 per cancellare il tuo profilo");
+                                System.out.println("seleziona 2 per creare la tua tessera");
+                                System.out.println("seleziona 3 per controllare la scadenza della tua tessera");
+                                System.out.println("seleziona 4 per comprare o rinnovare un abbonamento");
+                                System.out.println("seleziona 5 per comprare un biglietto");
+                                System.out.println("seleziona 6 per scegliere una tratta");
+                                System.out.println("seleziona 0 per uscire");
+                                scelta = Integer.parseInt(scanner.nextLine());
+                                switch (scelta) {
+                                    case 1:
+                                        //cancella utente
+                                        System.out.println("Inserisci il codice id del tuo profilo utente");
+                                        ud.removeById((scanner.nextLine()));
+                                        break;
+                                    case 2:
+                                        //crea tessera
+                                        System.out.println("Inserisci il codice id del tuo profilo utente: ");
+                                        String id_utente = scanner.nextLine();
+                                        Utente utente = ud.getById(id_utente);
+                                        Tessera tessera1 = new Tessera(utente);
+                                        td.salvaTessera(tessera1);
+                                        System.out.println("tessera creata con id: " + tessera1.getTesseraId());
+                                        break;
+                                    case 3:
+                                        //trova scadenza tessera
+                                        System.out.println("Inserisci il codice id della tua tessera: ");
+                                        String id_tessera = scanner.nextLine();
+                                        Tessera tessera2 = td.trovaTesseraDalNumero(id_tessera);
+                                        System.out.println(tessera2.getDataScadenza());
+                                        break;
+                                    case 4:
+                                        //comprare o rinnovare un abbonamento
+                                        System.out.println("Inserisci il tuo numero di tessera:");
+                                        Tessera tessera3 = td.trovaTesseraDalNumero(scanner.nextLine());
+                                        if (tessera3.getAbbonamento() != null) {
+                                            Abbonamento a1 = tessera3.getAbbonamento();
+                                            a1.setDataScadenza();
+                                            System.out.println("Scadenza rimandata di 7 gg");
+                                            // non è ancora persistito nel DB
+                                        } else {
+                                            Emittente d1 = ed.trovaPerId("d0fb19a4-41f4-4405-be6e-2e6ad3c081f7");
+                                            System.out.println("seleziona 1 per abbonamento settimanale, 2 per mensile");
+                                            scelta = Integer.parseInt(scanner.nextLine());
+                                            switch (scelta) {
+                                                case 1:
+                                                    Abbonamento a2 = new Abbonamento(d1, FrequenzaAbbonamento.SETTIMANALE, tessera3);
+                                                    tdvd.salvaTitoloDiViaggio(a2);
+                                                    System.out.println("Abbonamento con id: " + a2.getId() + "creato. Scadrà il " + a2.getDataScadenza());
+                                                    break;
+                                                case 2:
+                                                    Abbonamento a3 = new Abbonamento(d1, FrequenzaAbbonamento.MENSILE, tessera3);
+                                                    tdvd.salvaTitoloDiViaggio(a3);
+                                                    System.out.println("Abbonamento con id: " + a3.getId() + "creato. Scadrà il " + a3.getDataScadenza());
+                                                    break;
+                                                default:
+                                                    System.out.println("Hai inserito un valore non valido.");
+                                                    break;
+                                            }
+                                        }
+                                        break;
+                                    case 5:
+                                        //comprare un biglietto
+                                        Emittente d1 = ed.trovaPerId("d0fb19a4-41f4-4405-be6e-2e6ad3c081f7");
+                                        Biglietto b1 = new Biglietto(d1);
+                                        tdvd.salvaTitoloDiViaggio(b1);
+                                        System.out.println("Biglietto acquistato! Scegli una tratta su cui Validarlo:");
+                                        System.out.println("Premi 1 per tratta: via Cagliari 3 - via Bari 300");
+                                        System.out.println("Premi 2 per tratta: via Palermo 2 - via Torino 200");
+                                        System.out.println("Premi 3 per tratta: via Roma 1 - via Milano 100");
+                                        System.out.println("Premi 0 per uscire.");
+                                        scelta = Integer.parseInt(scanner.nextLine());
+                                        switch (scelta) {
+                                            case 1:
+                                                Parco_mezzi bus1 = pmd.findById("2dce0f07-d0bc-4569-8edb-4c370d673260");
+                                                ud.vidimaBiglietto(b1, bus1);
+                                                break;
+                                            case 2:
+                                                Parco_mezzi tram1 = pmd.findById("39d11496-2526-4521-add6-986493666629");
+                                                ud.vidimaBiglietto(b1, tram1);
+                                                break;
+                                            case 3:
+                                                Parco_mezzi bus2 = pmd.findById("b110a465-181b-45d8-ba90-d37760db4dd5");
+                                                ud.vidimaBiglietto(b1, bus2);
+                                                break;
+                                            case 0:
+                                                System.out.println("Grazie e arrivederci!");
+                                                break;
+                                        }
+                                    default:
+                                        break;
+                                }
+                                break;
+                            case 2:
+                                System.out.println("Seleziona 1 per creare il tuo profilo utente, 2 per comprare un biglietto senza registrarti, 0 per uscire. ");
+                                scelta = Integer.parseInt(scanner.nextLine());
+                                switch (scelta) {
+                                    case 1:
+                                        System.out.println("Inserisci il tuo nome: ");
+                                        String nome = scanner.nextLine();
+                                        System.out.println("Inserisci il tuo cognome: ");
+                                        String cognome = scanner.nextLine();
+                                        System.out.println("Inserisci il tuo anno di nascita");
+                                        int anno = Integer.parseInt(scanner.nextLine());
+                                        System.out.println("Inserisci il tuo mese di nascita");
+                                        int mese = Integer.parseInt(scanner.nextLine());
+                                        System.out.println("Inserisci il tuo giorno di nascita");
+                                        int giorno = Integer.parseInt(scanner.nextLine());
+                                        Utente u2 = new Utente(nome, cognome, anno, mese, giorno);
+                                        ud.save(u2);
+                                        
+                                        break;
+                                    case 2:
+                                        //comprare un biglietto
+                                        Emittente d1 = ed.trovaPerId("d0fb19a4-41f4-4405-be6e-2e6ad3c081f7");
+                                        Biglietto b1 = new Biglietto(d1);
+                                        tdvd.salvaTitoloDiViaggio(b1);
+                                        System.out.println("Biglietto acquistato! Scegli una tratta su cui Validarlo:");
+                                        System.out.println("Premi 1 per tratta: via Cagliari 3 - via Bari 300");
+                                        System.out.println("Premi 2 per tratta: via Palermo 2 - via Torino 200");
+                                        System.out.println("Premi 3 per tratta: via Roma 1 - via Milano 100");
+                                        System.out.println("Premi 0 per uscire.");
+                                        scelta = Integer.parseInt(scanner.nextLine());
+                                        switch (scelta) {
+                                            case 1:
+                                                Parco_mezzi bus1 = pmd.findById("2dce0f07-d0bc-4569-8edb-4c370d673260");
+                                                ud.vidimaBiglietto(b1, bus1);
+                                                break;
+                                            case 2:
+                                                Parco_mezzi tram1 = pmd.findById("39d11496-2526-4521-add6-986493666629");
+                                                ud.vidimaBiglietto(b1, tram1);
+                                                break;
+                                            case 3:
+                                                Parco_mezzi bus2 = pmd.findById("b110a465-181b-45d8-ba90-d37760db4dd5");
+                                                ud.vidimaBiglietto(b1, bus2);
+                                                break;
+                                            case 0:
+                                                System.out.println("Grazie e arrivederci!");
+                                                break;
+                                        }
+                                    case 0:
+                                        System.out.println("Grazie e arrivederci!");
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    case 2:
+                        ;
+                        //amministratore
 
-            //System.out.println(tdvd.bigliettiVidimatiPerMezzo(tram1FromDB));
+//                    case 0:
+//                        running = false;
+//                        System.out.println("Grazie e arrivederci!");
+//                        break;
+                    default:
+                        break;
 
-            //System.out.println(md.manutenzioniPerMezzo(tram1FromDB));
-
-        } catch (NotPossibleException ex) {
-            System.out.println(ex.getMessage());
+                }
+            } catch (InputMismatchException | IllegalArgumentException e) {
+                System.out.println("Errore");
+            }
         }
 
         em.close();

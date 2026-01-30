@@ -24,7 +24,7 @@ public class UtenteDAO {
         transaction.begin();
         em.persist(utente);
         transaction.commit();
-        System.out.println("Utente " + utente.getNome() + " salvato!");
+        System.out.println("Utente " + utente.getNome() + " " + utente.getCognome() + " salvato! id: " + utente.getUtenteId());
     }
 
     public Utente getById(String id) {
@@ -47,9 +47,7 @@ public class UtenteDAO {
         System.out.println("Utente cancellato.");
     }
 
-    public void vidimaBiglietto(String bigliettoId, String mezzoId) {
-
-        Parco_mezzi mezzo = em.find(Parco_mezzi.class, UUID.fromString(mezzoId));
+    public void vidimaBiglietto(Biglietto biglietto, Parco_mezzi mezzo) {
         if (mezzo == null) {
             System.out.println("Mezzo non trovato");
             return;
@@ -57,9 +55,8 @@ public class UtenteDAO {
             throw new NotFoundException(mezzo.getId().toString());
         }
 
-        Biglietto biglietto = em.find(Biglietto.class, UUID.fromString(bigliettoId));
         if (biglietto == null) {
-            throw new NotFoundException(bigliettoId);
+            throw new NotFoundException();
         } else if (biglietto.getDataVidimazione() != null) {
             throw new NotPossibleException("Biglietto giá vidimato");
         } else {
@@ -72,7 +69,7 @@ public class UtenteDAO {
             //cancelliamo il biglietto?
 
             transaction.commit();
-            System.out.println("Biglietto vidimato sul mezzo " + mezzoId);
+            System.out.println("Biglietto vidimato sul " + mezzo.getId() + " sulla tratta " + mezzo.getTratta().getPartenza() + "-" + mezzo.getTratta().getCapolinea());
         }
     }
 }
