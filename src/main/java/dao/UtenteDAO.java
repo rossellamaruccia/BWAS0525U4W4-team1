@@ -24,7 +24,7 @@ public class UtenteDAO {
         transaction.begin();
         em.persist(utente);
         transaction.commit();
-        System.out.println("Utente " + utente.getNome() + " " + utente.getCognome() + " salvato!");
+        System.out.println("Utente " + utente.getNome() + " " + utente.getCognome() + " salvato! id: " + utente.getUtenteId());
     }
 
     public Utente getById(String id) {
@@ -56,7 +56,7 @@ public class UtenteDAO {
         }
 
         if (biglietto == null) {
-            throw new NotFoundException(bigliettoId);
+            throw new NotFoundException();
         } else if (biglietto.getDataVidimazione() != null) {
             throw new NotPossibleException("Biglietto giá vidimato");
         } else {

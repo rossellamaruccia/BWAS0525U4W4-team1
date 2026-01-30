@@ -165,6 +165,7 @@ public class Application {
                                         int giorno = Integer.parseInt(scanner.nextLine());
                                         Utente u2 = new Utente(nome, cognome, anno, mese, giorno);
                                         ud.save(u2);
+                                        
                                         break;
                                     case 2:
                                         //comprare un biglietto
