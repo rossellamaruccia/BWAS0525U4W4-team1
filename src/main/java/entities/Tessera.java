@@ -50,6 +50,10 @@ public class Tessera {
         return dataScadenza;
     }
 
+    public void setDataScadenza() {
+        this.dataScadenza = LocalDate.now().plusYears(1);
+    }
+
     public UUID getTesseraId() {
         return tesseraId;
     }
